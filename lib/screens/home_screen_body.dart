@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/stores/application_store.dart';
+import 'package:flutter_web_formbuilder/widgets/design_view_element.dart';
+import 'package:flutter_web_formbuilder/widgets/dialogs/delete_design_item_dialog.dart';
 import 'package:flutter_web_formbuilder/widgets/drop_target_zone.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
@@ -12,8 +14,7 @@ class HomeScreenBody extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             DropTargetZone(
               highlightId: 'top',
@@ -21,7 +22,7 @@ class HomeScreenBody extends StatelessWidget {
                 ApplicationStore.items.insert(0, dropInfo);
               },
             ),
-            const Gap(5),
+            const Gap(8),
             Watch.builder(builder: (context) {
               return ReorderableListView.builder(
                 buildDefaultDragHandles: false,
@@ -39,22 +40,21 @@ class HomeScreenBody extends StatelessWidget {
                     key: ValueKey(ApplicationStore.items[index].id),
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Card(
-                        child: ListTile(
-                          title: Text(ApplicationStore.items[index].title),
-                          leading: ReorderableDragStartListener(
-                            index: index,
-                            child: const Icon(Icons.drag_handle),
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              ApplicationStore.items.removeAt(index);
-                            },
-                          ),
-                        ),
-                      ),
-                      const Gap(5),
+                      DesignViewElement(
+                          index: index,
+                          item: ApplicationStore.items[index],
+                          onDelete: (value) async {
+                            final delete = await showDialog<bool>(
+                              context: context,
+                              builder: (context) {
+                                return const DeleteDesignItemDialog();
+                              },
+                            );
+                            if (delete != null && delete) {
+                              ApplicationStore.items.remove(value);
+                            }
+                          }),
+                      const Gap(8),
                       DropTargetZone(
                         onDrop: (dropInfo) {
                           ApplicationStore.items.insert(index + 1, dropInfo);

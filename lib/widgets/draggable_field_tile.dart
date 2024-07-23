@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:flutter_web_formbuilder/stores/drag_and_drop_store.dart';
 import 'package:flutter_web_formbuilder/widgets/field_tile.dart';
 
 class DraggableFieldTile extends StatelessWidget {
-  final VoidCallback? onDragStarted;
-  final Function(DraggableDetails)? onDragEnd;
   final DragInfo dragInfo;
-  final Icon icon;
-  final String title;
+  final IconData icon;
   const DraggableFieldTile({
     super.key,
-    this.onDragStarted,
-    this.onDragEnd,
     required this.dragInfo,
     required this.icon,
-    required this.title,
   });
 
   @override
@@ -24,21 +19,29 @@ class DraggableFieldTile extends StatelessWidget {
       feedback: Material(
         color: Colors.transparent,
         child: FieldTile(
-          title: title,
-          icon: icon,
+          title: dragInfo.title,
+          icon: Icon(icon),
           isDragged: true,
         ),
       ),
       childWhenDragging: FieldTile(
-        title: title,
-        icon: icon,
+        title: dragInfo.title,
+        icon: Icon(icon),
         isActive: true,
       ),
-      onDragStarted: onDragStarted,
-      onDragEnd: onDragEnd,
+      onDragStarted: () {
+        DragAndDropStore.showDropTarget.value = true;
+        DragAndDropStore.dropIcon.value = icon;
+        DragAndDropStore.dropTitle.value = dragInfo.title;
+      },
+      onDragEnd: (_) {
+        DragAndDropStore.showDropTarget.value = false;
+        DragAndDropStore.dropIcon.value = null;
+        DragAndDropStore.dropTitle.value = null;
+      },
       child: FieldTile(
-        title: title,
-        icon: icon,
+        title: dragInfo.title,
+        icon: Icon(icon),
       ),
     );
   }

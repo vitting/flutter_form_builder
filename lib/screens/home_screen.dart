@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
               AppBar(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                title: const Text('Home Screen'),
+                title: const Text('Form Builder'),
               ),
               const Expanded(
                 child: Row(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
-import 'package:flutter_web_formbuilder/models/drop_info.dart';
+import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/drag_and_drop_store.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
 class DropTargetZone extends StatelessWidget {
-  final ValueChanged<DropInfo>? onDrop;
+  final ValueChanged<ElementModel>? onDrop;
   final String highlightId;
   const DropTargetZone({
     super.key,
@@ -23,7 +23,7 @@ class DropTargetZone extends StatelessWidget {
         debugPrint('rejected: $rejected');
         return Watch(
           (context) => AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 100),
             curve: Curves.easeIn,
             height: DragAndDropStore.highlightId.value == highlightId
                 ? 80
@@ -43,7 +43,7 @@ class DropTargetZone extends StatelessWidget {
                     ? Colors.white
                     : Colors.white.withOpacity(0.8),
               ),
-              duration: const Duration(milliseconds: 150),
+              duration: const Duration(milliseconds: 250),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -73,11 +73,11 @@ class DropTargetZone extends StatelessWidget {
       },
       onWillAcceptWithDetails: (details) {
         debugPrint('onWillAcceptWithDetails: $details');
-        return details.data.type == DragInfoType.input;
+        return details.data.layoutType == ElementLayoutType.input;
       },
       onAcceptWithDetails: (details) {
         DragAndDropStore.highlightId.value = '';
-        onDrop?.call(DropInfo.fromDragInfo(details.data));
+        onDrop?.call(ElementModel.fromDragInfo(details.data));
 
         debugPrint('onAcceptWithDetails: $details');
       },
