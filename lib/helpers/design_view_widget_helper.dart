@@ -2,23 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/widgets/inputs/input_number.dart';
 import 'package:flutter_web_formbuilder/widgets/inputs/input_text.dart';
+import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid.dart';
 
 class DesignViewWidgetHelper {
-  static Widget getInputWidget(ElementType? inputType, String labelText) {
-    switch (inputType) {
+  static Widget getWidget(ElementModel item) {
+    switch (item.type) {
       case ElementType.text:
         return InputText(
-          labelText: labelText,
+          labelText: item.title,
           readOnly: true,
         );
       case ElementType.number:
         return InputNumber(
-          labelText: labelText,
+          labelText: item.title,
           readOnly: true,
+        );
+      case ElementType.grid:
+        return FlexGrid(
+          columnCount: item.columnCount ?? 2,
+          rowCount: item.rowCount ?? 2,
         );
       default:
         return InputText(
-          labelText: labelText,
+          labelText: item.title,
           readOnly: true,
         );
       // case ElementInputType.date:

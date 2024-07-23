@@ -17,19 +17,25 @@ enum ElementLayoutType {
 }
 
 class ElementModel {
+  final String description;
+  final String id;
+  final ElementType? type;
+  final ElementLayoutType? layoutType;
+  final String title;
+  final List<ElementModel>? children;
+  final int? columnCount;
+  final int? rowCount;
+
   ElementModel({
     required this.id,
     required this.title,
     required this.description,
     required this.type,
     required this.layoutType,
+    this.children,
+    this.columnCount,
+    this.rowCount,
   });
-
-  final String description;
-  final String id;
-  final ElementType? type;
-  final ElementLayoutType? layoutType;
-  final String title;
 
   factory ElementModel.fromDragInfo(DragInfo dragInfo) {
     return ElementModel(

@@ -48,7 +48,7 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
         maxWidth: 250,
       ),
       color: Colors.grey.shade300,
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

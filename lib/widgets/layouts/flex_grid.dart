@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:flutter_web_formbuilder/screens/home_screen_body.dart';
 
 class FlexGrid extends StatelessWidget {
   final int columnCount;
@@ -17,25 +18,33 @@ class FlexGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: rowCount,
-          itemBuilder: (context, rowIndex) {
-            bool isLast = rowIndex == rowCount - 1;
+        const Text('Grid title'),
+        ...List.generate(
+          rowCount,
+          (rowIndex) {
             return Padding(
-              padding: EdgeInsets.only(bottom: isLast ? 0 : rowGap),
+              padding: EdgeInsets.only(
+                  bottom: rowIndex == rowCount - 1 ? 0 : rowGap),
               child: Row(
                 children: List.generate(
                   columnCount,
                   (columnIndex) => Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(
-                          right:
-                              columnIndex == columnCount - 1 ? 0 : columnGap),
-                      child: Container(
-                        color: Colors.blue.shade100,
-                        height: 80,
+                        right: columnIndex == columnCount - 1 ? 0 : columnGap,
+                      ),
+                      child: DragTarget<DragInfo>(
+                        onMove: (details) => debugPrint('onMove'),
+                        builder: (context, candidateData, rejectedData) =>
+                            Container(
+                          color: Colors.blue.shade100,
+                          height: 80,
+                          child: const Column(
+                            children: [],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -43,7 +52,7 @@ class FlexGrid extends StatelessWidget {
               ),
             );
           },
-        ),
+        )
       ],
     );
   }
