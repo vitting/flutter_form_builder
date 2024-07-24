@@ -37,4 +37,16 @@ class ApplicationStore {
       items[index] = item;
     }
   }
+
+  static void reorderGridChild(ElementModel item, int rowIndex, int columnIndex,
+      int oldIndex, int newIndex) {
+    final newItem = item.reorderGridChildAndGetCopyOf(
+        item: item,
+        rowIndex: rowIndex,
+        columnIndex: columnIndex,
+        oldIndex: oldIndex,
+        newIndex: newIndex);
+
+    updateItem(newItem);
+  }
 }

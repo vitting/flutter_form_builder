@@ -8,10 +8,12 @@ import 'package:signals/signals_flutter.dart';
 class DropTargetZone extends StatelessWidget {
   final ValueChanged<ElementModel>? onDrop;
   final String highlightId;
+  final EdgeInsets? margin;
   const DropTargetZone({
     super.key,
     this.onDrop,
     required this.highlightId,
+    this.margin,
   });
 
   @override
@@ -21,6 +23,7 @@ class DropTargetZone extends StatelessWidget {
           List<dynamic> rejected) {
         return Watch(
           (context) => AnimatedContainer(
+            margin: margin,
             duration: const Duration(
               milliseconds: 100,
             ),
@@ -31,6 +34,7 @@ class DropTargetZone extends StatelessWidget {
                     ? 30
                     : 0,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
               color: DragAndDropStore.highlightId.value == highlightId
                   ? Colors.blue.shade700
                   : Colors.blue.shade400,

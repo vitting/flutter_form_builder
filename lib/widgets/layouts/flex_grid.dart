@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/application_store.dart';
+import 'package:flutter_web_formbuilder/stores/flex_grid_store.dart';
 import 'package:flutter_web_formbuilder/widgets/design_view_elements.dart';
 import 'package:flutter_web_formbuilder/widgets/dialogs/delete_design_item_dialog.dart';
 
-class FlexGrid extends StatefulWidget {
+class FlexGrid extends StatelessWidget {
   final double rowGap;
   final double columnGap;
   final ElementModel item;
@@ -15,12 +16,7 @@ class FlexGrid extends StatefulWidget {
     this.columnGap = 1,
   });
 
-  @override
-  State<FlexGrid> createState() => _FlexGridState();
-}
-
-class _FlexGridState extends State<FlexGrid> {
-  List<Widget> _generateRows(ElementModel item) {
+  List<Widget> _generateRows(BuildContext context, ElementModel item) {
     if (item.rowCount == null) {
       return [];
     }
@@ -30,16 +26,17 @@ class _FlexGridState extends State<FlexGrid> {
       (rowIndex) {
         return Padding(
           padding: EdgeInsets.only(
-              bottom: rowIndex == item.rowCount! - 1 ? 0 : widget.rowGap),
+              bottom: rowIndex == item.rowCount! - 1 ? 0 : rowGap),
           child: Row(
-            children: _generateColumns(item, rowIndex),
+            children: _generateColumns(context, item, rowIndex),
           ),
         );
       },
     );
   }
 
-  List<Widget> _generateColumns(ElementModel item, int rowIndex) {
+  List<Widget> _generateColumns(
+      BuildContext context, ElementModel item, int rowIndex) {
     if (item.columnCount == null) {
       return [];
     }
@@ -50,15 +47,16 @@ class _FlexGridState extends State<FlexGrid> {
         return Expanded(
           child: Padding(
             padding: EdgeInsets.only(
-              right:
-                  columnIndex == item.columnCount! - 1 ? 0 : widget.columnGap,
+              right: columnIndex == item.columnCount! - 1 ? 0 : columnGap,
             ),
             child: Container(
+              padding: const EdgeInsets.all(4),
               constraints: const BoxConstraints(
                 minHeight: 30,
               ),
               decoration: BoxDecoration(
                 color: Colors.blue.shade200,
+                borderRadius: BorderRadius.circular(8),
               ),
               child: DesignViewElements(
                 items: item.getGridChildren(rowIndex, columnIndex),
@@ -66,27 +64,43 @@ class _FlexGridState extends State<FlexGrid> {
                     'top_${columnIndex}_${rowIndex}_${item.id}',
                 highlightIdDragTargetZoneAfter:
                     '${columnIndex}_${rowIndex}_${item.id}',
-                onReorder: (oldIndex, newIndex) {}, // TODO: Create REORDER
+                onReorder: (oldIndex, newIndex) {
+                  if (oldIndex < newIndex) {
+                    newIndex -= 1;
+                  }
+
+                  final newItem = FlexGridStore.reorderGridChild(
+                    item,
+                    rowIndex,
+                    columnIndex,
+                    oldIndex,
+                    newIndex,
+                  );
+
+                  ApplicationStore.updateItem(newItem);
+                },
                 onDropBefore: (elementItem) {
-                  final newItem = item.addGridChildFirstAndGetCopyOf(
-                    item: elementItem,
+                  final newItem = FlexGridStore.addGridChildFirst(
+                    item: item,
                     rowIndex: rowIndex,
                     columnIndex: columnIndex,
+                    itemToAdd: elementItem,
                   );
 
                   ApplicationStore.updateItem(newItem);
                 },
                 onDropAfter: (elementItem, index) {
-                  final newItem = item.addGridChildAtIndexAndGetCopyOf(
-                    item: elementItem,
+                  final newItem = FlexGridStore.addGridChildAtIndex(
+                    item: item,
                     rowIndex: rowIndex,
                     columnIndex: columnIndex,
                     gridChildIndex: index,
+                    itemToAdd: elementItem,
                   );
 
                   ApplicationStore.updateItem(newItem);
                 },
-                onDelete: (value) async {
+                onDelete: (elementItem) async {
                   final delete = await showDialog<bool>(
                     context: context,
                     builder: (context) {
@@ -94,7 +108,14 @@ class _FlexGridState extends State<FlexGrid> {
                     },
                   );
                   if (delete != null && delete) {
-                    ApplicationStore.items.remove(value);
+                    final newItem = FlexGridStore.removeGridChild(
+                      rowIndex: rowIndex,
+                      columnIndex: columnIndex,
+                      item: item,
+                      itemToRemove: elementItem,
+                    );
+
+                    ApplicationStore.updateItem(newItem);
                   }
                 },
               ),
@@ -111,7 +132,7 @@ class _FlexGridState extends State<FlexGrid> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Grid title'),
-        ..._generateRows(widget.item),
+        ..._generateRows(context, item),
       ],
     );
   }

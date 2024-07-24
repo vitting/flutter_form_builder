@@ -34,7 +34,6 @@ class DesignViewElement extends StatelessWidget {
                     child: const Icon(Icons.drag_handle),
                   ),
                   const Gap(16),
-                  // const Flexible(child: FlexGridContainer()),
                   Flexible(
                     child: DesignViewWidgetHelper.getWidget(item),
                   ),

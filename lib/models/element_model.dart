@@ -42,6 +42,46 @@ class ElementModel with _$ElementModel {
         [];
   }
 
+  ElementModel reorderGridChildAndGetCopyOf(
+      {required ElementModel item,
+      required int rowIndex,
+      required int columnIndex,
+      required int oldIndex,
+      required int newIndex}) {
+    final children = getGridChildren(rowIndex, columnIndex);
+    final item = children.removeAt(oldIndex);
+    children.insert(newIndex, item);
+    final newItem = copyWith(
+      gridChildren: {
+        ...gridChildren,
+        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
+          ...children,
+        ],
+      },
+    );
+
+    return newItem;
+  }
+
+  ElementModel removeGridChild({
+    required int rowIndex,
+    required int columnIndex,
+    required ElementModel item,
+  }) {
+    final children = getGridChildren(rowIndex, columnIndex);
+    children.removeWhere((element) => element.id == item.id);
+    final newItem = copyWith(
+      gridChildren: {
+        ...gridChildren,
+        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
+          ...children,
+        ],
+      },
+    );
+
+    return newItem;
+  }
+
   ElementModel addGridChildFirstAndGetCopyOf({
     required ElementModel item,
     required int rowIndex,

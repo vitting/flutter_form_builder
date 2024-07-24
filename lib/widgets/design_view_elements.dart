@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/widgets/design_view_element.dart';
 import 'package:flutter_web_formbuilder/widgets/drop_target_zone.dart';
-import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
 class DesignViewElements extends StatelessWidget {
@@ -13,7 +12,7 @@ class DesignViewElements extends StatelessWidget {
   final Function(ElementModel, int)? onDropAfter;
   final ValueChanged<ElementModel>? onDelete;
   final Function(int, int) onReorder;
-
+  final EdgeInsets? dragTargetZoneMargin;
   const DesignViewElements({
     super.key,
     required this.items,
@@ -23,6 +22,9 @@ class DesignViewElements extends StatelessWidget {
     this.onDropAfter,
     this.onDelete,
     required this.onReorder,
+    this.dragTargetZoneMargin = const EdgeInsets.symmetric(
+      vertical: 4,
+    ),
   });
 
   @override
@@ -34,7 +36,6 @@ class DesignViewElements extends StatelessWidget {
           highlightId: highlightIdDragTargetZoneBefore,
           onDrop: onDropBefore,
         ),
-        Gap(items.isEmpty ? 0 : 8),
         Watch.builder(builder: (context) {
           return ReorderableListView.builder(
             itemCount: items.length,
@@ -52,14 +53,13 @@ class DesignViewElements extends StatelessWidget {
                     item: items.elementAt(index),
                     onDelete: onDelete,
                   ),
-                  const Gap(8),
                   DropTargetZone(
                     highlightId: items.elementAt(index).id,
+                    margin: dragTargetZoneMargin,
                     onDrop: (elementItem) {
                       onDropAfter?.call(elementItem, index);
                     },
                   ),
-                  const Gap(8),
                 ],
               );
             },
