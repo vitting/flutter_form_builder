@@ -19,11 +19,11 @@ class DropTargetZone extends StatelessWidget {
     return DragTarget<DragInfo>(
       builder: (BuildContext context, List<DragInfo?> accepted,
           List<dynamic> rejected) {
-        debugPrint('accepted: $accepted');
-        debugPrint('rejected: $rejected');
         return Watch(
           (context) => AnimatedContainer(
-            duration: const Duration(milliseconds: 100),
+            duration: const Duration(
+              milliseconds: 100,
+            ),
             curve: Curves.easeIn,
             height: DragAndDropStore.highlightId.value == highlightId
                 ? 80
@@ -43,7 +43,9 @@ class DropTargetZone extends StatelessWidget {
                     ? Colors.white
                     : Colors.white.withOpacity(0.8),
               ),
-              duration: const Duration(milliseconds: 250),
+              duration: const Duration(
+                milliseconds: 250,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -72,24 +74,18 @@ class DropTargetZone extends StatelessWidget {
         );
       },
       onWillAcceptWithDetails: (details) {
-        debugPrint('onWillAcceptWithDetails: $details');
-        return details.data.layoutType == ElementLayoutType.input;
+        // return details.data.layoutType == ElementLayoutType.input;
+        return true;
       },
       onAcceptWithDetails: (details) {
         DragAndDropStore.highlightId.value = '';
         onDrop?.call(ElementModel.fromDragInfo(details.data));
-
-        debugPrint('onAcceptWithDetails: $details');
       },
       onLeave: (data) {
         DragAndDropStore.highlightId.value = '';
-
-        debugPrint('onLeave: $data');
       },
       onMove: (details) {
         DragAndDropStore.highlightId.value = highlightId;
-
-        debugPrint('onMove: $details');
       },
     );
   }

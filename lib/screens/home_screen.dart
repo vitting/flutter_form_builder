@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Expanded(
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     HomeScreenToolbar(),
                     HomeScreenBody(),

@@ -1,5 +1,8 @@
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
+
+part 'element_model.freezed.dart';
 
 enum ElementType {
   text,
@@ -16,28 +19,68 @@ enum ElementLayoutType {
   layout,
 }
 
-class ElementModel {
-  final String description;
-  final String id;
-  final ElementType? type;
-  final ElementLayoutType? layoutType;
-  final String title;
-  final List<ElementModel>? children;
-  final int? columnCount;
-  final int? rowCount;
+@freezed
+class ElementModel with _$ElementModel {
+  const ElementModel._();
+  const factory ElementModel({
+    required String id,
+    String? title,
+    String? description,
+    required ElementType type,
+    required ElementLayoutType layoutType,
+    @Default([]) List<ElementModel> children,
+    @Default({}) Map<String, List<ElementModel>> gridChildren,
+    int? columnCount,
+    int? rowCount,
+  }) = _ElementModel;
 
-  ElementModel({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.type,
-    required this.layoutType,
-    this.children,
-    this.columnCount,
-    this.rowCount,
-  });
+  List<ElementModel> getGridChildren(int rowIndex, int columnIndex) {
+    return gridChildren[ElementModel.generateGridMapKey(
+          rowIndex,
+          columnIndex,
+        )] ??
+        [];
+  }
 
-  factory ElementModel.fromDragInfo(DragInfo dragInfo) {
+  ElementModel addGridChildFirstAndGetCopyOf({
+    required ElementModel item,
+    required int rowIndex,
+    required int columnIndex,
+  }) {
+    final newItem = copyWith(
+      gridChildren: {
+        ...gridChildren,
+        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
+          item,
+          ...getGridChildren(rowIndex, columnIndex),
+        ],
+      },
+    );
+
+    return newItem;
+  }
+
+  ElementModel addGridChildAtIndexAndGetCopyOf({
+    required ElementModel item,
+    required int rowIndex,
+    required int columnIndex,
+    required int gridChildIndex,
+  }) {
+    final children = getGridChildren(rowIndex, columnIndex);
+    children.insert(gridChildIndex + 1, item);
+    final newItem = copyWith(
+      gridChildren: {
+        ...gridChildren,
+        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
+          ...children,
+        ],
+      },
+    );
+
+    return newItem;
+  }
+
+  static ElementModel fromDragInfo(DragInfo dragInfo) {
     return ElementModel(
       title: dragInfo.title,
       description: dragInfo.description,
@@ -45,5 +88,9 @@ class ElementModel {
       type: dragInfo.type,
       id: const Uuid().v4(),
     );
+  }
+
+  static String generateGridMapKey(int rowIndex, int columnIndex) {
+    return '$rowIndex:$columnIndex';
   }
 }

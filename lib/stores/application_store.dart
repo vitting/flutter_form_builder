@@ -30,4 +30,11 @@ final Iterable<ElementModel> dummy = [
 
 class ApplicationStore {
   static final items = listSignal<ElementModel>(dummy.toList());
+
+  static void updateItem(ElementModel item) {
+    final index = items.indexWhere((element) => element.id == item.id);
+    if (index != -1) {
+      items[index] = item;
+    }
+  }
 }

@@ -19,12 +19,11 @@ class DesignViewWidgetHelper {
         );
       case ElementType.grid:
         return FlexGrid(
-          columnCount: item.columnCount ?? 2,
-          rowCount: item.rowCount ?? 2,
+          item: item,
         );
       default:
         return InputText(
-          labelText: item.title,
+          labelText: item.title ?? '',
           readOnly: true,
         );
       // case ElementInputType.date:

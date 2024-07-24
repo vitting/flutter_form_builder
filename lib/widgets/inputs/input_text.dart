@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class InputText extends StatelessWidget {
-  final String labelText;
+  final String? labelText;
   final bool enabled;
   final bool readOnly;
   const InputText({
     super.key,
-    required this.labelText,
+    this.labelText,
     this.enabled = true,
     this.readOnly = false,
   });
