@@ -20,13 +20,13 @@ class DraggableFieldTile extends StatelessWidget {
         color: Colors.transparent,
         child: FieldTile(
           title: dragInfo.title,
-          icon: Icon(icon),
+          icon: icon,
           isDragged: true,
         ),
       ),
       childWhenDragging: FieldTile(
         title: dragInfo.title,
-        icon: Icon(icon),
+        icon: icon,
         isActive: true,
       ),
       onDragStarted: () {
@@ -41,7 +41,7 @@ class DraggableFieldTile extends StatelessWidget {
       },
       child: FieldTile(
         title: dragInfo.title,
-        icon: Icon(icon),
+        icon: icon,
       ),
     );
   }

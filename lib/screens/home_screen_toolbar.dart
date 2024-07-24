@@ -3,6 +3,7 @@ import 'package:flutter_web_formbuilder/models/definition_model.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/widgets/draggable_field_tile.dart';
+import 'package:flutter_web_formbuilder/widgets/toolbar_title.dart';
 import 'package:gap/gap.dart';
 
 final Iterable<DefinitionModel> dummyFields = [
@@ -52,12 +53,8 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Input fields',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+          const ToolbarTitle(
+            title: 'Input fields',
           ),
           const Gap(8),
           ListView.builder(
@@ -82,12 +79,8 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
               );
             },
           ),
-          const Text(
-            'Layout fields',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+          const ToolbarTitle(
+            title: 'Layout fields',
           ),
           const Gap(8),
           ListView.builder(

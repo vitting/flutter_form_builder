@@ -12,7 +12,7 @@ class DesignViewElements extends StatelessWidget {
   final Function(ElementModel, int)? onDropAfter;
   final ValueChanged<ElementModel>? onDelete;
   final Function(int, int) onReorder;
-  final EdgeInsets? dragTargetZoneMargin;
+
   const DesignViewElements({
     super.key,
     required this.items,
@@ -22,9 +22,6 @@ class DesignViewElements extends StatelessWidget {
     this.onDropAfter,
     this.onDelete,
     required this.onReorder,
-    this.dragTargetZoneMargin = const EdgeInsets.symmetric(
-      vertical: 4,
-    ),
   });
 
   @override
@@ -55,7 +52,6 @@ class DesignViewElements extends StatelessWidget {
                   ),
                   DropTargetZone(
                     highlightId: items.elementAt(index).id,
-                    margin: dragTargetZoneMargin,
                     onDrop: (elementItem) {
                       onDropAfter?.call(elementItem, index);
                     },

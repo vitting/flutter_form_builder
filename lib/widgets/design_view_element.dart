@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/helpers/design_view_widget_helper.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
+import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:gap/gap.dart';
 
 class DesignViewElement extends StatelessWidget {
@@ -17,6 +18,7 @@ class DesignViewElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -31,7 +33,10 @@ class DesignViewElement extends StatelessWidget {
                 children: [
                   ReorderableDragStartListener(
                     index: index,
-                    child: const Icon(Icons.drag_handle),
+                    child: Icon(
+                      Icons.drag_handle,
+                      color: IconStyles.actionIconColor,
+                    ),
                   ),
                   const Gap(16),
                   Flexible(
@@ -42,14 +47,20 @@ class DesignViewElement extends StatelessWidget {
             ),
             const Gap(16),
             IconButton(
-              icon: const Icon(Icons.delete),
+              icon: Icon(
+                Icons.delete,
+                color: IconStyles.actionIconColor,
+              ),
               onPressed: () {
                 onDelete?.call(item);
               },
             ),
             const Gap(8),
             IconButton(
-              icon: const Icon(Icons.edit),
+              icon: Icon(
+                Icons.edit,
+                color: IconStyles.actionIconColor,
+              ),
               onPressed: () {
                 onDelete?.call(item);
               },

@@ -127,6 +127,8 @@ class ElementModel with _$ElementModel {
       layoutType: dragInfo.layoutType,
       type: dragInfo.type,
       id: const Uuid().v4(),
+      rowCount: dragInfo.type == ElementType.grid ? 1 : null,
+      columnCount: dragInfo.type == ElementType.grid ? 2 : null,
     );
   }
 

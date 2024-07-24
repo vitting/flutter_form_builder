@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 
 class FieldTile extends StatelessWidget {
   final String title;
-  final Icon icon;
+  final IconData icon;
   final bool isDragged;
   final bool isActive;
   const FieldTile({
@@ -22,10 +22,10 @@ class FieldTile extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: isDragged
-              ? Colors.black.withOpacity(0.5)
+              ? Colors.blue.shade600.withOpacity(0.5)
               : isActive
-                  ? Colors.black.withOpacity(0.5)
-                  : Colors.black,
+                  ? Colors.blue.shade400
+                  : Colors.blue.shade200,
         ),
         borderRadius: BorderRadius.circular(16),
         color: isDragged
@@ -36,9 +36,17 @@ class FieldTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          icon,
+          Icon(
+            icon,
+            color: Colors.blue.shade600,
+          ),
           const Gap(8),
-          Text(title),
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.blue.shade600,
+            ),
+          ),
         ],
       ),
     );

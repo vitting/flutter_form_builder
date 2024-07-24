@@ -12,8 +12,8 @@ class FlexGrid extends StatelessWidget {
   const FlexGrid({
     super.key,
     required this.item,
-    this.rowGap = 1,
-    this.columnGap = 1,
+    this.rowGap = 2,
+    this.columnGap = 2,
   });
 
   List<Widget> _generateRows(BuildContext context, ElementModel item) {
@@ -55,7 +55,7 @@ class FlexGrid extends StatelessWidget {
                 minHeight: 30,
               ),
               decoration: BoxDecoration(
-                color: Colors.blue.shade200,
+                color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: DesignViewElements(
@@ -131,7 +131,8 @@ class FlexGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Grid title'),
+        ElevatedButton(onPressed: () {}, child: Text('Add Row')),
+        Text(item.title ?? ''),
         ..._generateRows(context, item),
       ],
     );
