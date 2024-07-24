@@ -59,4 +59,40 @@ class FlexGridStore {
 
     return newItem;
   }
+
+  static ElementModel deleteGridRow({
+    required ElementModel item,
+    required int rowIndex,
+  }) {
+    return item.copyWith(
+      rowCount: item.rowCount != null ? item.rowCount! - 1 : 0,
+      gridChildren: {
+        ...item.gridChildren,
+      }..removeWhere(
+          (key, value) => splitRowColumn(key).row == rowIndex,
+        ),
+    );
+  }
+
+  static ElementModel deleteGridColumn({
+    required ElementModel item,
+    required int columnIndex,
+  }) {
+    return item.copyWith(
+      columnCount: item.columnCount != null ? item.columnCount! - 1 : 0,
+      gridChildren: {
+        ...item.gridChildren,
+      }..removeWhere(
+          (key, value) => splitRowColumn(key).column == columnIndex,
+        ),
+    );
+  }
+
+  static ({int row, int column}) splitRowColumn(String key) {
+    final split = key.split(':');
+    return (
+      row: int.parse(split[0]),
+      column: int.parse(split[1]),
+    );
+  }
 }

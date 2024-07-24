@@ -22,6 +22,7 @@ mixin _$ElementModel {
   ElementType get type => throw _privateConstructorUsedError;
   ElementLayoutType get layoutType => throw _privateConstructorUsedError;
   List<ElementModel> get children => throw _privateConstructorUsedError;
+  List<GridRowModel> get gridChildren2 => throw _privateConstructorUsedError;
   Map<String, List<ElementModel>> get gridChildren =>
       throw _privateConstructorUsedError;
   int? get columnCount => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $ElementModelCopyWith<$Res> {
       ElementType type,
       ElementLayoutType layoutType,
       List<ElementModel> children,
+      List<GridRowModel> gridChildren2,
       Map<String, List<ElementModel>> gridChildren,
       int? columnCount,
       int? rowCount});
@@ -69,6 +71,7 @@ class _$ElementModelCopyWithImpl<$Res, $Val extends ElementModel>
     Object? type = null,
     Object? layoutType = null,
     Object? children = null,
+    Object? gridChildren2 = null,
     Object? gridChildren = null,
     Object? columnCount = freezed,
     Object? rowCount = freezed,
@@ -98,6 +101,10 @@ class _$ElementModelCopyWithImpl<$Res, $Val extends ElementModel>
           ? _value.children
           : children // ignore: cast_nullable_to_non_nullable
               as List<ElementModel>,
+      gridChildren2: null == gridChildren2
+          ? _value.gridChildren2
+          : gridChildren2 // ignore: cast_nullable_to_non_nullable
+              as List<GridRowModel>,
       gridChildren: null == gridChildren
           ? _value.gridChildren
           : gridChildren // ignore: cast_nullable_to_non_nullable
@@ -129,6 +136,7 @@ abstract class _$$ElementModelImplCopyWith<$Res>
       ElementType type,
       ElementLayoutType layoutType,
       List<ElementModel> children,
+      List<GridRowModel> gridChildren2,
       Map<String, List<ElementModel>> gridChildren,
       int? columnCount,
       int? rowCount});
@@ -151,6 +159,7 @@ class __$$ElementModelImplCopyWithImpl<$Res>
     Object? type = null,
     Object? layoutType = null,
     Object? children = null,
+    Object? gridChildren2 = null,
     Object? gridChildren = null,
     Object? columnCount = freezed,
     Object? rowCount = freezed,
@@ -180,6 +189,10 @@ class __$$ElementModelImplCopyWithImpl<$Res>
           ? _value._children
           : children // ignore: cast_nullable_to_non_nullable
               as List<ElementModel>,
+      gridChildren2: null == gridChildren2
+          ? _value._gridChildren2
+          : gridChildren2 // ignore: cast_nullable_to_non_nullable
+              as List<GridRowModel>,
       gridChildren: null == gridChildren
           ? _value._gridChildren
           : gridChildren // ignore: cast_nullable_to_non_nullable
@@ -206,10 +219,12 @@ class _$ElementModelImpl extends _ElementModel {
       required this.type,
       required this.layoutType,
       final List<ElementModel> children = const [],
+      final List<GridRowModel> gridChildren2 = const [],
       final Map<String, List<ElementModel>> gridChildren = const {},
       this.columnCount,
       this.rowCount})
       : _children = children,
+        _gridChildren2 = gridChildren2,
         _gridChildren = gridChildren,
         super._();
 
@@ -232,6 +247,15 @@ class _$ElementModelImpl extends _ElementModel {
     return EqualUnmodifiableListView(_children);
   }
 
+  final List<GridRowModel> _gridChildren2;
+  @override
+  @JsonKey()
+  List<GridRowModel> get gridChildren2 {
+    if (_gridChildren2 is EqualUnmodifiableListView) return _gridChildren2;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_gridChildren2);
+  }
+
   final Map<String, List<ElementModel>> _gridChildren;
   @override
   @JsonKey()
@@ -248,7 +272,7 @@ class _$ElementModelImpl extends _ElementModel {
 
   @override
   String toString() {
-    return 'ElementModel(id: $id, title: $title, description: $description, type: $type, layoutType: $layoutType, children: $children, gridChildren: $gridChildren, columnCount: $columnCount, rowCount: $rowCount)';
+    return 'ElementModel(id: $id, title: $title, description: $description, type: $type, layoutType: $layoutType, children: $children, gridChildren2: $gridChildren2, gridChildren: $gridChildren, columnCount: $columnCount, rowCount: $rowCount)';
   }
 
   @override
@@ -264,6 +288,8 @@ class _$ElementModelImpl extends _ElementModel {
             (identical(other.layoutType, layoutType) ||
                 other.layoutType == layoutType) &&
             const DeepCollectionEquality().equals(other._children, _children) &&
+            const DeepCollectionEquality()
+                .equals(other._gridChildren2, _gridChildren2) &&
             const DeepCollectionEquality()
                 .equals(other._gridChildren, _gridChildren) &&
             (identical(other.columnCount, columnCount) ||
@@ -281,6 +307,7 @@ class _$ElementModelImpl extends _ElementModel {
       type,
       layoutType,
       const DeepCollectionEquality().hash(_children),
+      const DeepCollectionEquality().hash(_gridChildren2),
       const DeepCollectionEquality().hash(_gridChildren),
       columnCount,
       rowCount);
@@ -300,6 +327,7 @@ abstract class _ElementModel extends ElementModel {
       required final ElementType type,
       required final ElementLayoutType layoutType,
       final List<ElementModel> children,
+      final List<GridRowModel> gridChildren2,
       final Map<String, List<ElementModel>> gridChildren,
       final int? columnCount,
       final int? rowCount}) = _$ElementModelImpl;
@@ -317,6 +345,8 @@ abstract class _ElementModel extends ElementModel {
   ElementLayoutType get layoutType;
   @override
   List<ElementModel> get children;
+  @override
+  List<GridRowModel> get gridChildren2;
   @override
   Map<String, List<ElementModel>> get gridChildren;
   @override

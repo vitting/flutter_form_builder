@@ -1,4 +1,5 @@
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:flutter_web_formbuilder/models/grid_row_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -29,10 +30,15 @@ class ElementModel with _$ElementModel {
     required ElementType type,
     required ElementLayoutType layoutType,
     @Default([]) List<ElementModel> children,
+    @Default([]) List<GridRowModel> gridChildren2,
     @Default({}) Map<String, List<ElementModel>> gridChildren,
     int? columnCount,
     int? rowCount,
   }) = _ElementModel;
+
+  List<GridRowModel> getGridChildren2() {
+    return gridChildren2;
+  }
 
   List<ElementModel> getGridChildren(int rowIndex, int columnIndex) {
     return gridChildren[ElementModel.generateGridMapKey(

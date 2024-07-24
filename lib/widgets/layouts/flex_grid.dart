@@ -131,7 +131,50 @@ class FlexGrid extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ElevatedButton(onPressed: () {}, child: Text('Add Row')),
+        Wrap(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                final newItem =
+                    FlexGridStore.deleteGridRow(item: item, rowIndex: 1);
+                debugPrint(
+                  '***** $newItem',
+                );
+
+                ApplicationStore.updateItem(newItem);
+              },
+              child: const Text('Add Row first'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final newItem =
+                    FlexGridStore.deleteGridColumn(item: item, columnIndex: 0);
+
+                debugPrint(
+                  '***** $newItem',
+                );
+                ApplicationStore.updateItem(newItem);
+              },
+              child: const Text('Add Row last'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Add Row in between'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Add Column first'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Add Column last'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Add Column in between'),
+            )
+          ],
+        ),
         Text(item.title ?? ''),
         ..._generateRows(context, item),
       ],
