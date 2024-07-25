@@ -37,6 +37,13 @@ final Iterable<ElementModel> dummy = [
             type: ElementType.text,
             layoutType: ElementLayoutType.input,
           ),
+          ElementModel(
+            id: const Uuid().v4(),
+            title: 'Number field',
+            description: 'This is a number field',
+            type: ElementType.number,
+            layoutType: ElementLayoutType.input,
+          ),
         ],
         [
           ElementModel(

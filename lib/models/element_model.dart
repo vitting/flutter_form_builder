@@ -1,47 +1,27 @@
-import 'dart:convert';
-
-import 'package:copy_with_extension/copy_with_extension.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-part 'element_model.g.dart';
+part 'element_model.freezed.dart';
 
-@CopyWith()
-class ElementModel extends Equatable {
-  final String id;
-  final String? title;
-  final String? description;
-  final ElementType type;
-  final ElementLayoutType layoutType;
-  final List<List<List<ElementModel>>> gridChildren;
-  final int? columnCount;
-  final int? rowCount;
+// part 'element_model.g.dart';
 
-  const ElementModel({
-    required this.id,
-    this.title,
-    this.description,
-    required this.type,
-    required this.layoutType,
-    this.gridChildren = const [],
-    this.columnCount,
-    this.rowCount,
-  });
+@freezed
+class ElementModel with _$ElementModel {
+  const ElementModel._();
 
-  @override
-  List<Object?> get props => [
-        id,
-        title,
-        description,
-        type,
-        layoutType,
-        gridChildren,
-        columnCount,
-        rowCount
-      ];
+  const factory ElementModel({
+    required String id,
+    String? title,
+    String? description,
+    required ElementType type,
+    required ElementLayoutType layoutType,
+    @Default([]) List<List<List<ElementModel>>> gridChildren,
+    int? columnCount,
+    int? rowCount,
+  }) = _ElementModel;
 
   List<List<ElementModel>> getRow(int rowIndex) {
     return gridChildren[rowIndex];
@@ -50,7 +30,7 @@ class ElementModel extends Equatable {
   ElementModel deleteRow(int rowIndex) {
     final newGridChildren = [...gridChildren];
     newGridChildren.removeAt(rowIndex);
-    return copyWith(gridChildren2: newGridChildren);
+    return copyWith(gridChildren: newGridChildren);
   }
 
   List<ElementModel> getColumn(int rowIndex, int columnIndex) {
@@ -62,7 +42,7 @@ class ElementModel extends Equatable {
     final newColumns = [...getRow(rowIndex)];
     newColumns.removeAt(columnIndex);
     newGridChildren[rowIndex] = newColumns;
-    return copyWith(gridChildren2: newGridChildren);
+    return copyWith(gridChildren: newGridChildren);
   }
 
   ElementModel addGridChildFirstAndGetCopyOf({
@@ -75,7 +55,7 @@ class ElementModel extends Equatable {
     newColumn.insert(0, itemToInsert);
     newGridChildren2[rowIndex][columnIndex] = newColumn;
 
-    return copyWith(gridChildren2: newGridChildren2);
+    return copyWith(gridChildren: newGridChildren2);
   }
 
   ElementModel addGridChildAtIndexAndGetCopyOf({
@@ -90,7 +70,7 @@ class ElementModel extends Equatable {
     newColumn.insert(gridChildIndex + 1, itemToInsert);
     newGridChildren[rowIndex][columnIndex] = newColumn;
 
-    return copyWith(gridChildren2: newGridChildren);
+    return copyWith(gridChildren: newGridChildren);
   }
 
   ElementModel removeGridChildAndGetCopyOf({
@@ -103,7 +83,7 @@ class ElementModel extends Equatable {
     newColumn.removeWhere((element) => element.id == itemToRemove.id);
     newGridChildren[rowIndex][columnIndex] = newColumn;
 
-    return copyWith(gridChildren2: newGridChildren);
+    return copyWith(gridChildren: newGridChildren);
   }
 
   ElementModel reorderGridChildAndGetCopyOf({
@@ -113,12 +93,11 @@ class ElementModel extends Equatable {
     required int newIndex,
   }) {
     final newGridChildren = [...gridChildren];
-    final newColumn = [...getColumn(rowIndex, columnIndex)];
+    final newColumn = getColumn(rowIndex, columnIndex);
     final item = newColumn.removeAt(oldIndex);
     newColumn.insert(newIndex, item);
-    newGridChildren[rowIndex][columnIndex] = newColumn;
 
-    return copyWith(gridChildren2: newGridChildren);
+    return copyWith(gridChildren: newGridChildren);
   }
 
   static ElementModel fromDragInfo(DragInfo dragInfo) {
