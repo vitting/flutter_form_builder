@@ -29,8 +29,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_reorderable_list: ^1.0.7
+  copy_with_extension: ^5.0.4
   cupertino_icons: ^1.0.6
+  deepcopy: ^1.1.2
   dotted_border: ^2.1.0
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   freezed_annotation: ^2.4.4
@@ -48,6 +51,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   build_runner: ^2.4.11
+  copy_with_extension_gen: ^5.0.4
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter

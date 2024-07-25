@@ -4,11 +4,11 @@ class FlexGridStore {
   static ElementModel reorderGridChild(ElementModel item, int rowIndex,
       int columnIndex, int oldIndex, int newIndex) {
     final newItem = item.reorderGridChildAndGetCopyOf(
-        item: item,
-        rowIndex: rowIndex,
-        columnIndex: columnIndex,
-        oldIndex: oldIndex,
-        newIndex: newIndex);
+      rowIndex: rowIndex,
+      columnIndex: columnIndex,
+      oldIndex: oldIndex,
+      newIndex: newIndex,
+    );
 
     return newItem;
   }
@@ -20,7 +20,7 @@ class FlexGridStore {
     required ElementModel itemToAdd,
   }) {
     final newItem = item.addGridChildFirstAndGetCopyOf(
-      item: itemToAdd,
+      itemToInsert: itemToAdd,
       rowIndex: rowIndex,
       columnIndex: columnIndex,
     );
@@ -36,7 +36,7 @@ class FlexGridStore {
     required int gridChildIndex,
   }) {
     final newItem = item.addGridChildAtIndexAndGetCopyOf(
-      item: itemToAdd,
+      itemToInsert: itemToAdd,
       rowIndex: rowIndex,
       columnIndex: columnIndex,
       gridChildIndex: gridChildIndex,
@@ -51,10 +51,10 @@ class FlexGridStore {
     required int columnIndex,
     required ElementModel itemToRemove,
   }) {
-    final newItem = item.removeGridChild(
+    final newItem = item.removeGridChildAndGetCopyOf(
       rowIndex: rowIndex,
       columnIndex: columnIndex,
-      item: itemToRemove,
+      itemToRemove: itemToRemove,
     );
 
     return newItem;
@@ -64,35 +64,14 @@ class FlexGridStore {
     required ElementModel item,
     required int rowIndex,
   }) {
-    return item.copyWith(
-      rowCount: item.rowCount != null ? item.rowCount! - 1 : 0,
-      gridChildren: {
-        ...item.gridChildren,
-      }..removeWhere(
-          (key, value) => splitRowColumn(key).row == rowIndex,
-        ),
-    );
+    return item.deleteRow(rowIndex);
   }
 
   static ElementModel deleteGridColumn({
     required ElementModel item,
+    required int rowIndex,
     required int columnIndex,
   }) {
-    return item.copyWith(
-      columnCount: item.columnCount != null ? item.columnCount! - 1 : 0,
-      gridChildren: {
-        ...item.gridChildren,
-      }..removeWhere(
-          (key, value) => splitRowColumn(key).column == columnIndex,
-        ),
-    );
-  }
-
-  static ({int row, int column}) splitRowColumn(String key) {
-    final split = key.split(':');
-    return (
-      row: int.parse(split[0]),
-      column: int.parse(split[1]),
-    );
+    return item.deleteColumn(rowIndex, columnIndex);
   }
 }

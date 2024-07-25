@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
+import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/definition_model.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
-import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/widgets/draggable_field_tile.dart';
 import 'package:flutter_web_formbuilder/widgets/toolbar_title.dart';
 import 'package:gap/gap.dart';

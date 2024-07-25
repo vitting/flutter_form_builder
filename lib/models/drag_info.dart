@@ -1,4 +1,5 @@
-import 'package:flutter_web_formbuilder/models/element_model.dart';
+import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
+import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 
 class DragInfo {
   final String title;

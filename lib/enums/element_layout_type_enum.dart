@@ -1,0 +1,4 @@
+enum ElementLayoutType {
+  input,
+  layout,
+}

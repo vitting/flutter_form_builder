@@ -59,7 +59,7 @@ class FlexGrid extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: DesignViewElements(
-                items: item.getGridChildren(rowIndex, columnIndex),
+                items: item.getColumn(rowIndex, columnIndex),
                 highlightIdDragTargetZoneBefore:
                     'top_${columnIndex}_${rowIndex}_${item.id}',
                 highlightIdDragTargetZoneAfter:
@@ -136,7 +136,7 @@ class FlexGrid extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 final newItem =
-                    FlexGridStore.deleteGridRow(item: item, rowIndex: 1);
+                    FlexGridStore.deleteGridRow(item: item, rowIndex: 0);
                 debugPrint(
                   '***** $newItem',
                 );
@@ -147,8 +147,8 @@ class FlexGrid extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                final newItem =
-                    FlexGridStore.deleteGridColumn(item: item, columnIndex: 0);
+                final newItem = FlexGridStore.deleteGridColumn(
+                    item: item, columnIndex: 0, rowIndex: 1);
 
                 debugPrint(
                   '***** $newItem',

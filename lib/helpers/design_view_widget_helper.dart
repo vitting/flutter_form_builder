@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/widgets/inputs/input_number.dart';
 import 'package:flutter_web_formbuilder/widgets/inputs/input_text.dart';

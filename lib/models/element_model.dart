@@ -1,129 +1,124 @@
+import 'dart:convert';
+
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
+import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
-import 'package:flutter_web_formbuilder/models/grid_row_model.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-part 'element_model.freezed.dart';
+part 'element_model.g.dart';
 
-enum ElementType {
-  text,
-  number,
-  date,
-  email,
-  checkbox,
-  checkboxList,
-  grid,
-}
+@CopyWith()
+class ElementModel extends Equatable {
+  final String id;
+  final String? title;
+  final String? description;
+  final ElementType type;
+  final ElementLayoutType layoutType;
+  final List<List<List<ElementModel>>> gridChildren;
+  final int? columnCount;
+  final int? rowCount;
 
-enum ElementLayoutType {
-  input,
-  layout,
-}
+  const ElementModel({
+    required this.id,
+    this.title,
+    this.description,
+    required this.type,
+    required this.layoutType,
+    this.gridChildren = const [],
+    this.columnCount,
+    this.rowCount,
+  });
 
-@freezed
-class ElementModel with _$ElementModel {
-  const ElementModel._();
-  const factory ElementModel({
-    required String id,
-    String? title,
-    String? description,
-    required ElementType type,
-    required ElementLayoutType layoutType,
-    @Default([]) List<ElementModel> children,
-    @Default([]) List<GridRowModel> gridChildren2,
-    @Default({}) Map<String, List<ElementModel>> gridChildren,
-    int? columnCount,
-    int? rowCount,
-  }) = _ElementModel;
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        type,
+        layoutType,
+        gridChildren,
+        columnCount,
+        rowCount
+      ];
 
-  List<GridRowModel> getGridChildren2() {
-    return gridChildren2;
+  List<List<ElementModel>> getRow(int rowIndex) {
+    return gridChildren[rowIndex];
   }
 
-  List<ElementModel> getGridChildren(int rowIndex, int columnIndex) {
-    return gridChildren[ElementModel.generateGridMapKey(
-          rowIndex,
-          columnIndex,
-        )] ??
-        [];
+  ElementModel deleteRow(int rowIndex) {
+    final newGridChildren = [...gridChildren];
+    newGridChildren.removeAt(rowIndex);
+    return copyWith(gridChildren2: newGridChildren);
   }
 
-  ElementModel reorderGridChildAndGetCopyOf(
-      {required ElementModel item,
-      required int rowIndex,
-      required int columnIndex,
-      required int oldIndex,
-      required int newIndex}) {
-    final children = getGridChildren(rowIndex, columnIndex);
-    final item = children.removeAt(oldIndex);
-    children.insert(newIndex, item);
-    final newItem = copyWith(
-      gridChildren: {
-        ...gridChildren,
-        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
-          ...children,
-        ],
-      },
-    );
-
-    return newItem;
+  List<ElementModel> getColumn(int rowIndex, int columnIndex) {
+    return gridChildren[rowIndex][columnIndex];
   }
 
-  ElementModel removeGridChild({
-    required int rowIndex,
-    required int columnIndex,
-    required ElementModel item,
-  }) {
-    final children = getGridChildren(rowIndex, columnIndex);
-    children.removeWhere((element) => element.id == item.id);
-    final newItem = copyWith(
-      gridChildren: {
-        ...gridChildren,
-        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
-          ...children,
-        ],
-      },
-    );
-
-    return newItem;
+  ElementModel deleteColumn(int rowIndex, int columnIndex) {
+    final newGridChildren = [...gridChildren];
+    final newColumns = [...getRow(rowIndex)];
+    newColumns.removeAt(columnIndex);
+    newGridChildren[rowIndex] = newColumns;
+    return copyWith(gridChildren2: newGridChildren);
   }
 
   ElementModel addGridChildFirstAndGetCopyOf({
-    required ElementModel item,
+    required ElementModel itemToInsert,
     required int rowIndex,
     required int columnIndex,
   }) {
-    final newItem = copyWith(
-      gridChildren: {
-        ...gridChildren,
-        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
-          item,
-          ...getGridChildren(rowIndex, columnIndex),
-        ],
-      },
-    );
+    final newGridChildren2 = [...gridChildren];
+    final newColumn = [...getColumn(rowIndex, columnIndex)];
+    newColumn.insert(0, itemToInsert);
+    newGridChildren2[rowIndex][columnIndex] = newColumn;
 
-    return newItem;
+    return copyWith(gridChildren2: newGridChildren2);
   }
 
   ElementModel addGridChildAtIndexAndGetCopyOf({
-    required ElementModel item,
+    required ElementModel itemToInsert,
     required int rowIndex,
     required int columnIndex,
     required int gridChildIndex,
   }) {
-    final children = getGridChildren(rowIndex, columnIndex);
-    children.insert(gridChildIndex + 1, item);
-    final newItem = copyWith(
-      gridChildren: {
-        ...gridChildren,
-        ElementModel.generateGridMapKey(rowIndex, columnIndex): [
-          ...children,
-        ],
-      },
-    );
+    final newGridChildren = [...gridChildren];
+    final newColumn = [...getColumn(rowIndex, columnIndex)];
 
-    return newItem;
+    newColumn.insert(gridChildIndex + 1, itemToInsert);
+    newGridChildren[rowIndex][columnIndex] = newColumn;
+
+    return copyWith(gridChildren2: newGridChildren);
+  }
+
+  ElementModel removeGridChildAndGetCopyOf({
+    required int rowIndex,
+    required int columnIndex,
+    required ElementModel itemToRemove,
+  }) {
+    final newGridChildren = [...gridChildren];
+    final newColumn = [...getColumn(rowIndex, columnIndex)];
+    newColumn.removeWhere((element) => element.id == itemToRemove.id);
+    newGridChildren[rowIndex][columnIndex] = newColumn;
+
+    return copyWith(gridChildren2: newGridChildren);
+  }
+
+  ElementModel reorderGridChildAndGetCopyOf({
+    required int rowIndex,
+    required int columnIndex,
+    required int oldIndex,
+    required int newIndex,
+  }) {
+    final newGridChildren = [...gridChildren];
+    final newColumn = [...getColumn(rowIndex, columnIndex)];
+    final item = newColumn.removeAt(oldIndex);
+    newColumn.insert(newIndex, item);
+    newGridChildren[rowIndex][columnIndex] = newColumn;
+
+    return copyWith(gridChildren2: newGridChildren);
   }
 
   static ElementModel fromDragInfo(DragInfo dragInfo) {
@@ -136,9 +131,5 @@ class ElementModel with _$ElementModel {
       rowCount: dragInfo.type == ElementType.grid ? 1 : null,
       columnCount: dragInfo.type == ElementType.grid ? 2 : null,
     );
-  }
-
-  static String generateGridMapKey(int rowIndex, int columnIndex) {
-    return '$rowIndex:$columnIndex';
   }
 }
