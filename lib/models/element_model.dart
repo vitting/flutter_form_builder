@@ -1,27 +1,51 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-part 'element_model.freezed.dart';
+// part 'element_model.freezed.dart';
 
-// part 'element_model.g.dart';
+part 'element_model.g.dart';
 
-@freezed
-class ElementModel with _$ElementModel {
-  const ElementModel._();
+@CopyWith()
+class ElementModel extends Equatable {
+  final String id;
+  final String? title;
+  final String? description;
+  final ElementType type;
+  final ElementLayoutType layoutType;
+  final List<List<List<ElementModel>>> gridChildren;
+  final int? columnCount;
+  final int? rowCount;
 
-  const factory ElementModel({
-    required String id,
-    String? title,
-    String? description,
-    required ElementType type,
-    required ElementLayoutType layoutType,
-    @Default([]) List<List<List<ElementModel>>> gridChildren,
-    int? columnCount,
-    int? rowCount,
-  }) = _ElementModel;
+  const ElementModel({
+    required this.id,
+    this.title,
+    this.description,
+    required this.type,
+    required this.layoutType,
+    this.gridChildren = const [],
+    this.columnCount,
+    this.rowCount,
+  });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        type,
+        layoutType,
+        gridChildren,
+        columnCount,
+        rowCount,
+      ];
+
+  @override
+  bool get stringify => true;
 
   List<List<ElementModel>> getRow(int rowIndex) {
     return gridChildren[rowIndex];
