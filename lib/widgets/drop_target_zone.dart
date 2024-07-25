@@ -39,8 +39,8 @@ class DropTargetZone extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: DragAndDropStore.highlightId.value == highlightId
-                  ? Colors.blue.shade700
-                  : Colors.blue.shade400,
+                  ? Colors.grey.shade700
+                  : Colors.grey.shade400,
             ),
             child: AnimatedDefaultTextStyle(
               style: TextStyle(
