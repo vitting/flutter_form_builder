@@ -5,8 +5,6 @@ import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:uuid/uuid.dart';
 
-// part 'element_model.freezed.dart';
-
 part 'element_model.g.dart';
 
 @CopyWith()
@@ -123,6 +121,19 @@ class ElementModel extends Equatable {
     return copyWith(gridChildren: newGridChildren);
   }
 
+  static List<List<List<ElementModel>>> generateGridChild({
+    required int rowCount,
+    required int columnCount,
+  }) {
+    return List.generate(
+      rowCount,
+      (rowIndex) => List.generate(
+        columnCount,
+        (columnIndex) => [],
+      ),
+    );
+  }
+
   static ElementModel fromDragInfo(DragInfo dragInfo) {
     return ElementModel(
       title: dragInfo.title,
@@ -132,6 +143,12 @@ class ElementModel extends Equatable {
       id: const Uuid().v4(),
       rowCount: dragInfo.type == ElementType.grid ? 1 : null,
       columnCount: dragInfo.type == ElementType.grid ? 2 : null,
+      gridChildren: dragInfo.type == ElementType.grid
+          ? ElementModel.generateGridChild(
+              rowCount: 1,
+              columnCount: 2,
+            )
+          : [],
     );
   }
 }
