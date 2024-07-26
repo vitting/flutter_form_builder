@@ -3,6 +3,7 @@ import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/definition_model.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/draggable_field_tile.dart';
 import 'package:flutter_web_formbuilder/widgets/toolbar_title.dart';
 import 'package:gap/gap.dart';
@@ -13,14 +14,14 @@ final Iterable<DefinitionModel> dummyFields = [
     description: 'This is a text field',
     layoutType: ElementLayoutType.input,
     type: ElementType.text,
-    icon: Icons.text_fields,
+    icon: IconStyles.iconTextFields,
   ),
   DefinitionModel(
     title: 'Number field',
     description: 'This is a number field',
     layoutType: ElementLayoutType.input,
     type: ElementType.number,
-    icon: Icons.numbers,
+    icon: IconStyles.iconNumbers,
   ),
 ];
 
@@ -30,7 +31,7 @@ final Iterable<DefinitionModel> dummyLayouts = [
     description: 'This is a grid layout field',
     layoutType: ElementLayoutType.layout,
     type: ElementType.grid,
-    icon: Icons.view_comfy,
+    icon: IconStyles.iconGrid,
   ),
 ];
 

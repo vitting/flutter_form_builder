@@ -21,7 +21,7 @@ extension GridChildrenExtension on ElementModel {
     return gridChildren[rowIndex][columnIndex];
   }
 
-  ElementModel reorderGridChild(
+  ElementModel reorderGridChildInColumn(
       int rowIndex, int columnIndex, int oldIndex, int newIndex) {
     final newGridChildren = [...gridChildren];
     final newColumn = getGridChildColumn(rowIndex, columnIndex);
@@ -31,7 +31,7 @@ extension GridChildrenExtension on ElementModel {
     return copyWith(gridChildren: newGridChildren);
   }
 
-  ElementModel addGridChildFirst({
+  ElementModel addGridChildFirstInColumn({
     required int rowIndex,
     required int columnIndex,
     required ElementModel itemToAdd,
@@ -44,7 +44,7 @@ extension GridChildrenExtension on ElementModel {
     return copyWith(gridChildren: newGridChildren);
   }
 
-  ElementModel addGridChildAtIndex({
+  ElementModel addGridChildAtIndexInColumn({
     required int rowIndex,
     required int columnIndex,
     required ElementModel itemToAdd,
@@ -59,7 +59,7 @@ extension GridChildrenExtension on ElementModel {
     return copyWith(gridChildren: newGridChildren);
   }
 
-  ElementModel removeGridChild({
+  ElementModel removeGridChildFromColumn({
     required int rowIndex,
     required int columnIndex,
     required ElementModel itemToRemove,
@@ -72,7 +72,7 @@ extension GridChildrenExtension on ElementModel {
     return copyWith(gridChildren: newGridChildren);
   }
 
-  ElementModel deleteGridRow({
+  ElementModel deleteRowFromGridChildren({
     required int rowIndex,
   }) {
     final newGridChildren = [...gridChildren];
@@ -80,7 +80,7 @@ extension GridChildrenExtension on ElementModel {
     return copyWith(gridChildren: newGridChildren);
   }
 
-  ElementModel deleteGridColumn({
+  ElementModel deleteColumnFromGridChildren({
     required int rowIndex,
     required int columnIndex,
   }) {

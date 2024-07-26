@@ -34,8 +34,8 @@ class DesignViewElement extends StatelessWidget {
                   ReorderableDragStartListener(
                     index: index,
                     child: Icon(
-                      Icons.drag_handle,
-                      color: IconStyles.actionIconColor,
+                      IconStyles.iconDragHandler,
+                      color: IconStyles.colorActionIcon,
                     ),
                   ),
                   const Gap(16),
@@ -48,8 +48,8 @@ class DesignViewElement extends StatelessWidget {
             const Gap(16),
             IconButton(
               icon: Icon(
-                Icons.delete,
-                color: IconStyles.actionIconColor,
+                IconStyles.iconDelete,
+                color: IconStyles.colorActionIcon,
               ),
               onPressed: () {
                 onDelete?.call(item);
@@ -58,8 +58,8 @@ class DesignViewElement extends StatelessWidget {
             const Gap(8),
             IconButton(
               icon: Icon(
-                Icons.edit,
-                color: IconStyles.actionIconColor,
+                IconStyles.iconEdit,
+                color: IconStyles.colorActionIcon,
               ),
               onPressed: () {
                 onDelete?.call(item);

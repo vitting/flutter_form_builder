@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/application_store.dart';
+import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/design_view_elements.dart';
 import 'package:flutter_web_formbuilder/widgets/dialogs/delete_design_item_dialog.dart';
+import 'package:gap/gap.dart';
 
 class FlexGrid extends StatelessWidget {
   final double rowGap;
@@ -25,7 +27,14 @@ class FlexGrid extends StatelessWidget {
           padding:
               EdgeInsets.only(bottom: rowIndex == rowCount - 1 ? 0 : rowGap),
           child: Row(
-            children: _generateColumns(context, item, rowIndex),
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(IconStyles.iconTableRow),
+              ),
+              const Gap(4),
+              ..._generateColumns(context, item, rowIndex),
+            ],
           ),
         );
       },
@@ -52,62 +61,75 @@ class FlexGrid extends StatelessWidget {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: DesignViewElements(
-                items: item.getGridChildColumn(rowIndex, columnIndex),
-                highlightIdDragTargetZoneBefore:
-                    'top_${columnIndex}_${rowIndex}_${item.id}',
-                highlightIdDragTargetZoneAfter:
-                    '${columnIndex}_${rowIndex}_${item.id}',
-                onReorder: (oldIndex, newIndex) {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
+              child: Expanded(
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(IconStyles.iconTableColumn),
+                    ),
+                    const Gap(4),
+                    Expanded(
+                      child: DesignViewElements(
+                        items: item.getGridChildColumn(rowIndex, columnIndex),
+                        highlightIdDragTargetZoneBefore:
+                            'top_${columnIndex}_${rowIndex}_${item.id}',
+                        highlightIdDragTargetZoneAfter:
+                            '${columnIndex}_${rowIndex}_${item.id}',
+                        onReorder: (oldIndex, newIndex) {
+                          if (oldIndex < newIndex) {
+                            newIndex -= 1;
+                          }
 
-                  final newItem = item.reorderGridChild(
-                    rowIndex,
-                    columnIndex,
-                    oldIndex,
-                    newIndex,
-                  );
+                          final newItem = item.reorderGridChildInColumn(
+                            rowIndex,
+                            columnIndex,
+                            oldIndex,
+                            newIndex,
+                          );
 
-                  ApplicationStore.updateItem(newItem);
-                },
-                onDropBefore: (elementItem) {
-                  final newItem = item.addGridChildFirst(
-                    rowIndex: rowIndex,
-                    columnIndex: columnIndex,
-                    itemToAdd: elementItem,
-                  );
+                          ApplicationStore.updateItem(newItem);
+                        },
+                        onDropBefore: (elementItem) {
+                          final newItem = item.addGridChildFirstInColumn(
+                            rowIndex: rowIndex,
+                            columnIndex: columnIndex,
+                            itemToAdd: elementItem,
+                          );
 
-                  ApplicationStore.updateItem(newItem);
-                },
-                onDropAfter: (elementItem, index) {
-                  final newItem = item.addGridChildAtIndex(
-                    rowIndex: rowIndex,
-                    columnIndex: columnIndex,
-                    gridChildIndex: index,
-                    itemToAdd: elementItem,
-                  );
+                          ApplicationStore.updateItem(newItem);
+                        },
+                        onDropAfter: (elementItem, index) {
+                          final newItem = item.addGridChildAtIndexInColumn(
+                            rowIndex: rowIndex,
+                            columnIndex: columnIndex,
+                            gridChildIndex: index,
+                            itemToAdd: elementItem,
+                          );
 
-                  ApplicationStore.updateItem(newItem);
-                },
-                onDelete: (elementItem) async {
-                  final delete = await showDialog<bool>(
-                    context: context,
-                    builder: (context) {
-                      return const DeleteDesignItemDialog();
-                    },
-                  );
-                  if (delete != null && delete) {
-                    final newItem = item.removeGridChild(
-                      rowIndex: rowIndex,
-                      columnIndex: columnIndex,
-                      itemToRemove: elementItem,
-                    );
+                          ApplicationStore.updateItem(newItem);
+                        },
+                        onDelete: (elementItem) async {
+                          final delete = await showDialog<bool>(
+                            context: context,
+                            builder: (context) {
+                              return const DeleteDesignItemDialog();
+                            },
+                          );
+                          if (delete != null && delete) {
+                            final newItem = item.removeGridChildFromColumn(
+                              rowIndex: rowIndex,
+                              columnIndex: columnIndex,
+                              itemToRemove: elementItem,
+                            );
 
-                    ApplicationStore.updateItem(newItem);
-                  }
-                },
+                            ApplicationStore.updateItem(newItem);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
