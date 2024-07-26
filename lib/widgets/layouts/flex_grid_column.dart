@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_formbuilder/enums/flex_grid_column_action_enum.dart';
+import 'package:flutter_web_formbuilder/enums/flex_grid_action_enum.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/application_store.dart';
@@ -72,23 +72,23 @@ class _FlexGridColumnState extends State<FlexGridColumn> {
                     ? CrossFadeState.showFirst
                     : CrossFadeState.showSecond,
                 duration: const Duration(milliseconds: 200),
-                firstChild: PopupMenuButton<FlexGridColumnAction>(
+                firstChild: PopupMenuButton<FlexGridAction>(
                   color: Colors.white,
                   tooltip: 'Column Actions',
                   position: PopupMenuPosition.under,
                   initialValue: null,
                   itemBuilder: (context) {
-                    return <PopupMenuEntry<FlexGridColumnAction>>[
+                    return <PopupMenuEntry<FlexGridAction>>[
                       const PopupMenuItem(
-                        value: FlexGridColumnAction.addColumnBefore,
+                        value: FlexGridAction.addBefore,
                         child: Text('Add Column Before'),
                       ),
                       const PopupMenuItem(
-                        value: FlexGridColumnAction.addColumnAfter,
+                        value: FlexGridAction.addAfter,
                         child: Text('Add Column After'),
                       ),
                       const PopupMenuItem(
-                        value: FlexGridColumnAction.deleteColumn,
+                        value: FlexGridAction.delete,
                         child: Text('Delete Column'),
                       ),
                     ];

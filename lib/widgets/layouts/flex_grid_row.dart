@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_formbuilder/enums/flex_grid_row_action_enum.dart';
+import 'package:flutter_web_formbuilder/enums/flex_grid_action_enum.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
@@ -74,23 +74,23 @@ class _FlexGridRowState extends State<FlexGridRow> {
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,
               duration: const Duration(milliseconds: 150),
-              firstChild: PopupMenuButton<FlexGridRowAction>(
+              firstChild: PopupMenuButton<FlexGridAction>(
                 tooltip: 'Row Actions',
                 color: Colors.white,
                 position: PopupMenuPosition.under,
                 initialValue: null,
                 itemBuilder: (context) {
-                  return <PopupMenuEntry<FlexGridRowAction>>[
+                  return <PopupMenuEntry<FlexGridAction>>[
                     const PopupMenuItem(
-                      value: FlexGridRowAction.addRowBefore,
+                      value: FlexGridAction.addBefore,
                       child: Text('Add Row Before'),
                     ),
                     const PopupMenuItem(
-                      value: FlexGridRowAction.addRowAfter,
+                      value: FlexGridAction.addAfter,
                       child: Text('Add Row After'),
                     ),
                     const PopupMenuItem(
-                      value: FlexGridRowAction.deleteRow,
+                      value: FlexGridAction.delete,
                       child: Text('Delete Row'),
                     ),
                   ];
