@@ -4,6 +4,7 @@ import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart'
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_column.dart';
+import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_edit.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -29,20 +30,18 @@ class FlexGridRow extends StatefulWidget {
 class _FlexGridRowState extends State<FlexGridRow> {
   late final rowMenuActive = createSignal<int>(context, -1);
 
-  List<Widget> _generateColumns(
-      BuildContext context, ElementModel item, int rowIndex) {
-    return List.generate(
-      item.getGridChildColumnsCount(rowIndex),
-      (columnIndex) {
-        return FlexGridColumn(
-          columnGap: widget.columnGap,
-          isGridEditable: widget.isGridEditable,
-          item: item,
-          rowIndex: rowIndex,
-          columnIndex: columnIndex,
-        );
-      },
-    );
+  void onMenuAction(FlexGridAction value) {
+    switch (value) {
+      case FlexGridAction.addBefore:
+        // widget.item.addGridRow(widget.rowIndex);
+        break;
+      case FlexGridAction.addAfter:
+        // widget.item.addGridRow(widget.rowIndex + 1);
+        break;
+      case FlexGridAction.delete:
+        // widget.item.removeGridRow(widget.rowIndex);
+        break;
+    }
   }
 
   @override
@@ -57,7 +56,7 @@ class _FlexGridRowState extends State<FlexGridRow> {
         duration: const Duration(milliseconds: 150),
         decoration: BoxDecoration(
           color: rowMenuActive.value == widget.rowIndex
-              ? Colors.grey.shade300
+              ? Colors.grey.shade400
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
@@ -69,50 +68,31 @@ class _FlexGridRowState extends State<FlexGridRow> {
         ),
         child: Row(
           children: [
-            AnimatedCrossFade(
-              crossFadeState: widget.isGridEditable
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              duration: const Duration(milliseconds: 150),
-              firstChild: PopupMenuButton<FlexGridAction>(
-                tooltip: 'Row Actions',
-                color: Colors.white,
-                position: PopupMenuPosition.under,
-                initialValue: null,
-                itemBuilder: (context) {
-                  return <PopupMenuEntry<FlexGridAction>>[
-                    const PopupMenuItem(
-                      value: FlexGridAction.addBefore,
-                      child: Text('Add Row Before'),
-                    ),
-                    const PopupMenuItem(
-                      value: FlexGridAction.addAfter,
-                      child: Text('Add Row After'),
-                    ),
-                    const PopupMenuItem(
-                      value: FlexGridAction.delete,
-                      child: Text('Delete Row'),
-                    ),
-                  ];
-                },
-                onSelected: (value) {
-                  debugPrint('selected $value');
-                  rowMenuActive.value = -1;
-                },
-                onOpened: () {
-                  rowMenuActive.value = widget.rowIndex;
-                },
-                onCanceled: () {
-                  rowMenuActive.value = -1;
-                },
-                icon: const Icon(
-                  IconStyles.iconTableRow,
-                ),
-              ),
-              secondChild: const SizedBox.shrink(),
+            FlexGridEdit(
+              isGridEditable: widget.isGridEditable,
+              icon: IconStyles.iconTableRow,
+              typeText: 'Row',
+              onMenuActivated: () {
+                rowMenuActive.value = widget.rowIndex;
+              },
+              onMenuDeactivated: () {
+                rowMenuActive.value = -1;
+              },
+              onActionSelected: onMenuAction,
             ),
             if (widget.isGridEditable) const Gap(4),
-            ..._generateColumns(context, widget.item, widget.rowIndex),
+            ...List.generate(
+              widget.item.getGridChildColumnsCount(widget.rowIndex),
+              (columnIndex) {
+                return FlexGridColumn(
+                  columnGap: widget.columnGap,
+                  isGridEditable: widget.isGridEditable,
+                  item: widget.item,
+                  rowIndex: widget.rowIndex,
+                  columnIndex: columnIndex,
+                );
+              },
+            )
           ],
         ),
       ),

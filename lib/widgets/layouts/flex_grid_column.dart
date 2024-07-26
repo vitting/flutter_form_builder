@@ -6,6 +6,7 @@ import 'package:flutter_web_formbuilder/stores/application_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/design_view_elements.dart';
 import 'package:flutter_web_formbuilder/widgets/dialogs/delete_design_item_dialog.dart';
+import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_edit.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -32,10 +33,18 @@ class _FlexGridColumnState extends State<FlexGridColumn> {
   late String columnSignature = '${widget.rowIndex}:${widget.columnIndex}';
   late final columnMenuActive = createSignal<String>(context, '-1:-1');
 
-  @override
-  void initState() {
-    super.initState();
-    columnSignature = '${widget.rowIndex}:${widget.columnIndex}';
+  void onMenuAction(FlexGridAction value) {
+    switch (value) {
+      case FlexGridAction.addBefore:
+        // widget.item.addGridRow(widget.rowIndex);
+        break;
+      case FlexGridAction.addAfter:
+        // widget.item.addGridRow(widget.rowIndex + 1);
+        break;
+      case FlexGridAction.delete:
+        // widget.item.removeGridRow(widget.rowIndex);
+        break;
+    }
   }
 
   @override
@@ -61,55 +70,23 @@ class _FlexGridColumnState extends State<FlexGridColumn> {
           ),
           decoration: BoxDecoration(
             color: columnMenuActive.value == columnSignature
-                ? Colors.grey.shade300
+                ? Colors.grey.shade400
                 : Colors.grey.shade200,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
             children: [
-              AnimatedCrossFade(
-                crossFadeState: widget.isGridEditable
-                    ? CrossFadeState.showFirst
-                    : CrossFadeState.showSecond,
-                duration: const Duration(milliseconds: 200),
-                firstChild: PopupMenuButton<FlexGridAction>(
-                  color: Colors.white,
-                  tooltip: 'Column Actions',
-                  position: PopupMenuPosition.under,
-                  initialValue: null,
-                  itemBuilder: (context) {
-                    return <PopupMenuEntry<FlexGridAction>>[
-                      const PopupMenuItem(
-                        value: FlexGridAction.addBefore,
-                        child: Text('Add Column Before'),
-                      ),
-                      const PopupMenuItem(
-                        value: FlexGridAction.addAfter,
-                        child: Text('Add Column After'),
-                      ),
-                      const PopupMenuItem(
-                        value: FlexGridAction.delete,
-                        child: Text('Delete Column'),
-                      ),
-                    ];
-                  },
-                  onSelected: (value) {
-                    debugPrint('selected $value');
-                    columnMenuActive.value = '-1:-1';
-                  },
-                  onOpened: () {
-                    debugPrint('opened');
-                    columnMenuActive.value = columnSignature;
-                  },
-                  onCanceled: () {
-                    debugPrint('canceled');
-                    columnMenuActive.value = '-1:-1';
-                  },
-                  icon: const Icon(
-                    IconStyles.iconTableColumn,
-                  ),
-                ),
-                secondChild: const SizedBox.shrink(),
+              FlexGridEdit(
+                isGridEditable: widget.isGridEditable,
+                icon: IconStyles.iconTableColumn,
+                typeText: 'Column',
+                onMenuActivated: () {
+                  columnMenuActive.value = columnSignature;
+                },
+                onMenuDeactivated: () {
+                  columnMenuActive.value = '-1:-1';
+                },
+                onActionSelected: onMenuAction,
               ),
               if (widget.isGridEditable) const Gap(4),
               Expanded(
