@@ -25,8 +25,6 @@ final Iterable<ElementModel> dummy = [
     description: 'This is a grid layout',
     type: ElementType.grid,
     layoutType: ElementLayoutType.layout,
-    columnCount: 2,
-    rowCount: 2,
     gridChildren: [
       [
         [

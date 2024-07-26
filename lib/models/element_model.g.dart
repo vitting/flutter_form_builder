@@ -19,10 +19,6 @@ abstract class _$ElementModelCWProxy {
 
   ElementModel gridChildren(List<List<List<ElementModel>>> gridChildren);
 
-  ElementModel columnCount(int? columnCount);
-
-  ElementModel rowCount(int? rowCount);
-
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ElementModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
@@ -36,8 +32,6 @@ abstract class _$ElementModelCWProxy {
     ElementType? type,
     ElementLayoutType? layoutType,
     List<List<List<ElementModel>>>? gridChildren,
-    int? columnCount,
-    int? rowCount,
   });
 }
 
@@ -69,12 +63,6 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
       this(gridChildren: gridChildren);
 
   @override
-  ElementModel columnCount(int? columnCount) => this(columnCount: columnCount);
-
-  @override
-  ElementModel rowCount(int? rowCount) => this(rowCount: rowCount);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ElementModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -89,8 +77,6 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
     Object? type = const $CopyWithPlaceholder(),
     Object? layoutType = const $CopyWithPlaceholder(),
     Object? gridChildren = const $CopyWithPlaceholder(),
-    Object? columnCount = const $CopyWithPlaceholder(),
-    Object? rowCount = const $CopyWithPlaceholder(),
   }) {
     return ElementModel(
       id: id == const $CopyWithPlaceholder() || id == null
@@ -119,14 +105,6 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
               ? _value.gridChildren
               // ignore: cast_nullable_to_non_nullable
               : gridChildren as List<List<List<ElementModel>>>,
-      columnCount: columnCount == const $CopyWithPlaceholder()
-          ? _value.columnCount
-          // ignore: cast_nullable_to_non_nullable
-          : columnCount as int?,
-      rowCount: rowCount == const $CopyWithPlaceholder()
-          ? _value.rowCount
-          // ignore: cast_nullable_to_non_nullable
-          : rowCount as int?,
     );
   }
 }
