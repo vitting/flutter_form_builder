@@ -48,7 +48,7 @@ class ElementModel extends Equatable {
     return gridChildren[rowIndex];
   }
 
-  ElementModel deleteRow(int rowIndex) {
+  ElementModel deleteGridRow(int rowIndex) {
     final newGridChildren = [...gridChildren];
     newGridChildren.removeAt(rowIndex);
     return copyWith(gridChildren: newGridChildren);
@@ -58,7 +58,7 @@ class ElementModel extends Equatable {
     return gridChildren[rowIndex][columnIndex];
   }
 
-  ElementModel deleteColumn(int rowIndex, int columnIndex) {
+  ElementModel deleteGridColumn(int rowIndex, int columnIndex) {
     final newGridChildren = [...gridChildren];
     final newColumns = [...getRow(rowIndex)];
     newColumns.removeAt(columnIndex);

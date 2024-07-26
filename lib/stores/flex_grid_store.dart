@@ -64,7 +64,7 @@ class FlexGridStore {
     required ElementModel item,
     required int rowIndex,
   }) {
-    return item.deleteRow(rowIndex);
+    return item.deleteGridRow(rowIndex);
   }
 
   static ElementModel deleteGridColumn({
@@ -72,6 +72,6 @@ class FlexGridStore {
     required int rowIndex,
     required int columnIndex,
   }) {
-    return item.deleteColumn(rowIndex, columnIndex);
+    return item.deleteGridColumn(rowIndex, columnIndex);
   }
 }
