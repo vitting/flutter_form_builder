@@ -90,4 +90,64 @@ extension GridChildrenExtension on ElementModel {
     newGridChildren[rowIndex] = newColumns;
     return copyWith(gridChildren: newGridChildren);
   }
+
+  ElementModel addGridRowBefore(int rowIndex) {
+    final newGridChildren = [...gridChildren];
+    newGridChildren.insert(
+      rowIndex,
+      List.generate(
+        2,
+        (index) => [],
+      ),
+    );
+    return copyWith(gridChildren: newGridChildren);
+  }
+
+  ElementModel addGridRowAfter(int rowIndex) {
+    final newGridChildren = [...gridChildren];
+    newGridChildren.insert(
+      rowIndex + 1,
+      List.generate(
+        2,
+        (index) => [],
+      ),
+    );
+    return copyWith(gridChildren: newGridChildren);
+  }
+
+  ElementModel removeGridRow(int rowIndex) {
+    final newGridChildren = [...gridChildren];
+    newGridChildren.removeAt(rowIndex);
+    return copyWith(gridChildren: newGridChildren);
+  }
+
+  ElementModel addGridColumnBefore(int rowIndex, int columnIndex) {
+    final newGridChildren = [...gridChildren];
+    final newColumns = [...getGridChildRow(rowIndex)];
+    newColumns.insert(
+      columnIndex,
+      [],
+    );
+    newGridChildren[rowIndex] = newColumns;
+    return copyWith(gridChildren: newGridChildren);
+  }
+
+  ElementModel addGridColumnAfter(int rowIndex, int columnIndex) {
+    final newGridChildren = [...gridChildren];
+    final newColumns = [...getGridChildRow(rowIndex)];
+    newColumns.insert(
+      columnIndex + 1,
+      [],
+    );
+    newGridChildren[rowIndex] = newColumns;
+    return copyWith(gridChildren: newGridChildren);
+  }
+
+  ElementModel removeGridColumn(int rowIndex, int columnIndex) {
+    final newGridChildren = [...gridChildren];
+    final newColumns = [...getGridChildRow(rowIndex)];
+    newColumns.removeAt(columnIndex);
+    newGridChildren[rowIndex] = newColumns;
+    return copyWith(gridChildren: newGridChildren);
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/enums/flex_grid_action_enum.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
+import 'package:flutter_web_formbuilder/stores/application_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_column.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_edit.dart';
@@ -33,13 +34,16 @@ class _FlexGridRowState extends State<FlexGridRow> {
   void onMenuAction(FlexGridAction value) {
     switch (value) {
       case FlexGridAction.addBefore:
-        // widget.item.addGridRow(widget.rowIndex);
+        final newItem = widget.item.addGridRowBefore(widget.rowIndex);
+        ApplicationStore.updateItem(newItem);
         break;
       case FlexGridAction.addAfter:
-        // widget.item.addGridRow(widget.rowIndex + 1);
+        final newItem = widget.item.addGridRowAfter(widget.rowIndex);
+        ApplicationStore.updateItem(newItem);
         break;
       case FlexGridAction.delete:
-        // widget.item.removeGridRow(widget.rowIndex);
+        final newItem = widget.item.removeGridRow(widget.rowIndex);
+        ApplicationStore.updateItem(newItem);
         break;
     }
   }

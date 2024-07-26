@@ -36,13 +36,19 @@ class _FlexGridColumnState extends State<FlexGridColumn> {
   void onMenuAction(FlexGridAction value) {
     switch (value) {
       case FlexGridAction.addBefore:
-        // widget.item.addGridRow(widget.rowIndex);
+        final newItem = widget.item
+            .addGridColumnBefore(widget.rowIndex, widget.columnIndex);
+        ApplicationStore.updateItem(newItem);
         break;
       case FlexGridAction.addAfter:
-        // widget.item.addGridRow(widget.rowIndex + 1);
+        final newItem =
+            widget.item.addGridColumnAfter(widget.rowIndex, widget.columnIndex);
+        ApplicationStore.updateItem(newItem);
         break;
       case FlexGridAction.delete:
-        // widget.item.removeGridRow(widget.rowIndex);
+        final newItem =
+            widget.item.removeGridColumn(widget.rowIndex, widget.columnIndex);
+        ApplicationStore.updateItem(newItem);
         break;
     }
   }
