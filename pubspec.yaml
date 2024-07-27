@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   deepcopy: ^1.1.2
   dotted_border: ^2.1.0
+  drag_and_drop_lists: ^0.4.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter

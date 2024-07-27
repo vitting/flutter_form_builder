@@ -46,6 +46,7 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       constraints: const BoxConstraints(
         minWidth: 250,
         maxWidth: 250,

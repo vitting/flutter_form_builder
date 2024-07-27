@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/helpers/design_view_widget_helper.dart';
-import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/reorder_list_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
