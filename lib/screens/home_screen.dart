@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     HomeScreenToolbar(),
-                    HomeScreenBody(),
+                    Expanded(child: HomeScreenBody()),
                   ],
                 ),
               ),

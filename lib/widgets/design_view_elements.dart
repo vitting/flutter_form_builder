@@ -33,31 +33,38 @@ class DesignViewElements extends StatelessWidget {
           onDrop: onDropBefore,
         ),
         Watch.builder(builder: (context) {
-          return ReorderableListView.builder(
-            itemCount: items.length,
-            buildDefaultDragHandles: false,
-            onReorder: onReorder,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final item = items.elementAt(index);
-              return Column(
-                key: ValueKey(item.id),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DesignViewElement(
-                    index: index,
-                    item: items.elementAt(index),
-                    onDelete: onDelete,
-                  ),
-                  DropTargetZone(
-                    highlightId: items.elementAt(index).id,
-                    onDrop: (elementItem) {
-                      onDropAfter?.call(elementItem, index);
-                    },
-                  ),
-                ],
-              );
-            },
+          // The ConstrainedBox is used to create a ViewPort for
+          //the ReorderableListView to be able to scroll
+          return ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+            ),
+            child: ReorderableListView.builder(
+              itemCount: items.length,
+              buildDefaultDragHandles: false,
+              onReorder: onReorder,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final item = items.elementAt(index);
+                return Column(
+                  key: ValueKey(item.id),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DesignViewElement(
+                      index: index,
+                      item: items.elementAt(index),
+                      onDelete: onDelete,
+                    ),
+                    DropTargetZone(
+                      highlightId: items.elementAt(index).id,
+                      onDrop: (elementItem) {
+                        onDropAfter?.call(elementItem, index);
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           );
         })
       ],
