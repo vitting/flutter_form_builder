@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/helpers/design_view_widget_helper.dart';
+import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
+import 'package:flutter_web_formbuilder/stores/reorder_list_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_web_formbuilder/widgets/design_view_element_card.dart';
 
 class DesignViewElement extends StatelessWidget {
   final int index;
@@ -17,35 +19,24 @@ class DesignViewElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
+    return DesignViewElementCard(
+      leading: AnimatedCrossFade(
+        duration: const Duration(milliseconds: 200),
+        crossFadeState: ReorderListStore.reorderIsEnabled.value
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        firstChild: ReorderableDragStartListener(
+          index: index,
+          child: Icon(
+            IconStyles.iconDragHandler,
+            color: IconStyles.colorActionIcon,
+          ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        secondChild: const SizedBox.shrink(),
+      ),
+      trailing: AnimatedCrossFade(
+        firstChild: Row(
           children: [
-            Flexible(
-              child: Row(
-                children: [
-                  ReorderableDragStartListener(
-                    index: index,
-                    child: Icon(
-                      IconStyles.iconDragHandler,
-                      color: IconStyles.colorActionIcon,
-                    ),
-                  ),
-                  const Gap(16),
-                  Flexible(
-                    child: DesignViewWidgetHelper.getWidget(item),
-                  ),
-                ],
-              ),
-            ),
-            const Gap(16),
             IconButton(
               icon: Icon(
                 IconStyles.iconDelete,
@@ -55,7 +46,6 @@ class DesignViewElement extends StatelessWidget {
                 onDelete?.call(item);
               },
             ),
-            const Gap(8),
             IconButton(
               icon: Icon(
                 IconStyles.iconEdit,
@@ -67,7 +57,13 @@ class DesignViewElement extends StatelessWidget {
             )
           ],
         ),
+        secondChild: const SizedBox.shrink(),
+        crossFadeState: ReorderListStore.reorderIsEnabled.value
+            ? CrossFadeState.showSecond
+            : CrossFadeState.showFirst,
+        duration: const Duration(milliseconds: 200),
       ),
+      child: DesignViewWidgetHelper.getWidget(item),
     );
   }
 }
