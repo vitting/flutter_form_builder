@@ -3,6 +3,7 @@ import 'package:flutter_web_formbuilder/enums/flex_grid_action_enum.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/application_store.dart';
+import 'package:flutter_web_formbuilder/stores/flex_grid_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_column.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_edit.dart';
@@ -12,14 +13,13 @@ import 'package:signals/signals_flutter.dart';
 class FlexGridRow extends StatefulWidget {
   final double rowGap;
   final double columnGap;
-  final bool isGridEditable;
+
   final int rowIndex;
   final ElementModel item;
   const FlexGridRow({
     super.key,
     this.rowGap = 2,
     this.columnGap = 2,
-    this.isGridEditable = false,
     required this.rowIndex,
     required this.item,
   });
@@ -70,35 +70,40 @@ class _FlexGridRowState extends State<FlexGridRow> {
           const EdgeInsets.all(4),
           rowMenuActive.value == widget.rowIndex ? 1 : 0,
         ),
-        child: Row(
-          children: [
-            FlexGridEdit(
-              isGridEditable: widget.isGridEditable,
-              icon: IconStyles.iconTableRow,
-              typeText: 'Row',
-              onMenuActivated: () {
-                rowMenuActive.value = widget.rowIndex;
-              },
-              onMenuDeactivated: () {
-                rowMenuActive.value = -1;
-              },
-              onActionSelected: onMenuAction,
-            ),
-            if (widget.isGridEditable) const Gap(4),
-            ...List.generate(
-              widget.item.getGridChildColumnsCount(widget.rowIndex),
-              (columnIndex) {
-                return FlexGridColumn(
-                  columnGap: widget.columnGap,
-                  isGridEditable: widget.isGridEditable,
-                  item: widget.item,
-                  rowIndex: widget.rowIndex,
-                  columnIndex: columnIndex,
-                );
-              },
-            )
-          ],
-        ),
+        child: Watch.builder(builder: (context) {
+          return Row(
+            children: [
+              FlexGridEdit(
+                isGridEditable:
+                    FlexGridStore.gridEditableId.value == widget.item.id,
+                icon: IconStyles.iconTableRow,
+                typeText: 'Row',
+                onMenuActivated: () {
+                  rowMenuActive.value = widget.rowIndex;
+                },
+                onMenuDeactivated: () {
+                  rowMenuActive.value = -1;
+                },
+                onActionSelected: onMenuAction,
+              ),
+              if (FlexGridStore.gridEditableId.value == widget.item.id)
+                const Gap(4),
+              ...List.generate(
+                widget.item.getGridChildColumnsCount(widget.rowIndex),
+                (columnIndex) {
+                  return FlexGridColumn(
+                    columnGap: widget.columnGap,
+                    isGridEditable:
+                        FlexGridStore.gridEditableId.value == widget.item.id,
+                    item: widget.item,
+                    rowIndex: widget.rowIndex,
+                    columnIndex: columnIndex,
+                  );
+                },
+              )
+            ],
+          );
+        }),
       ),
     );
   }
