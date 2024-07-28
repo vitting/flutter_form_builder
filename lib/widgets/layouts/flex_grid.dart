@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/extensions/element_model_extension.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/flex_grid_store.dart';
+import 'package:flutter_web_formbuilder/stores/reorder_list_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/layouts/flex_grid_row.dart';
 import 'package:gap/gap.dart';
-import 'package:signals/signals_flutter.dart';
 
 class FlexGrid extends StatefulWidget {
   final double rowGap;
@@ -32,18 +32,19 @@ class _FlexGridState extends State<FlexGrid> {
       children: [
         Row(
           children: [
-            IconButton(
-              onPressed: () {
-                if (FlexGridStore.gridEditableId.value == widget.item.id) {
-                  FlexGridStore.gridEditableId.value = '';
-                } else {
-                  FlexGridStore.gridEditableId.value = widget.item.id;
-                }
-              },
-              icon: const Icon(
-                IconStyles.iconGrid,
+            if (!ReorderListStore.reorderIsEnabled.value)
+              IconButton(
+                onPressed: () {
+                  if (FlexGridStore.gridEditableId.value == widget.item.id) {
+                    FlexGridStore.gridEditableId.value = '';
+                  } else {
+                    FlexGridStore.gridEditableId.value = widget.item.id;
+                  }
+                },
+                icon: const Icon(
+                  IconStyles.iconGrid,
+                ),
               ),
-            ),
             const Gap(4),
             const Text(
               'Grid',

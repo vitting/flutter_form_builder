@@ -3,7 +3,6 @@ import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
 import 'package:flutter_web_formbuilder/stores/drag_and_drop_store.dart';
-import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
