@@ -12,9 +12,11 @@ class IconStyles {
   static const IconData iconDragHandler = Symbols.drag_handle;
   static const IconData iconTextFields = Symbols.text_fields;
   static const IconData iconNumbers = Symbols.numbers;
+  static const IconData iconDate = Symbols.calendar_today;
   static const IconData iconGrid = Symbols.view_comfy;
   static const IconData iconTableRow = Symbols.table_rows;
   static const IconData iconTableColumn = Symbols.view_column;
   static const IconData iconReorder = Symbols.reorder;
   static const IconData iconReorderActive = Symbols.list_alt;
+  static const IconData iconExclamation = Symbols.exclamation;
 }

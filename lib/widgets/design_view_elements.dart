@@ -12,6 +12,7 @@ class DesignViewElements extends StatelessWidget {
   final Function(ElementModel, int)? onDropAfter;
   final ValueChanged<ElementModel>? onDelete;
   final Function(int, int) onReorder;
+  final ElementModel? parentItem;
 
   const DesignViewElements({
     super.key,
@@ -22,6 +23,7 @@ class DesignViewElements extends StatelessWidget {
     this.onDropAfter,
     this.onDelete,
     required this.onReorder,
+    this.parentItem,
   });
 
   @override
@@ -31,6 +33,7 @@ class DesignViewElements extends StatelessWidget {
         DropTargetZone(
           highlightId: highlightIdDragTargetZoneBefore,
           onDrop: onDropBefore,
+          parentItem: parentItem,
         ),
         Watch.builder(builder: (context) {
           // The ConstrainedBox is used to create a ViewPort for
@@ -60,6 +63,7 @@ class DesignViewElements extends StatelessWidget {
                       onDrop: (elementItem) {
                         onDropAfter?.call(elementItem, index);
                       },
+                      parentItem: parentItem,
                     ),
                   ],
                 );

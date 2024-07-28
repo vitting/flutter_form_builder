@@ -1,5 +1,6 @@
 import 'package:signals/signals.dart';
 
 class FlexGridStore {
-  final isGridEditable = signal<bool>(false);
+  final isGridEditableId = signal<String?>(null);
+  final hideActionsId = signal<String?>(null);
 }

@@ -97,6 +97,7 @@ class _FlexGridColumnState extends State<FlexGridColumn> {
               if (widget.isGridEditable) const Gap(4),
               Expanded(
                 child: DesignViewElements(
+                  parentItem: widget.item,
                   items: widget.item
                       .getGridChildColumn(widget.rowIndex, widget.columnIndex),
                   highlightIdDragTargetZoneBefore:

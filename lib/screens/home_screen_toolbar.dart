@@ -23,6 +23,13 @@ final Iterable<DefinitionModel> dummyFields = [
     type: ElementType.number,
     icon: IconStyles.iconNumbers,
   ),
+  DefinitionModel(
+    title: 'Date field',
+    description: 'This is a date field',
+    layoutType: ElementLayoutType.input,
+    type: ElementType.date,
+    icon: IconStyles.iconDate,
+  ),
 ];
 
 final Iterable<DefinitionModel> dummyLayouts = [
@@ -47,10 +54,11 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
-      constraints: const BoxConstraints(
-        minWidth: 250,
-        maxWidth: 250,
-      ),
+      width: 250,
+      // constraints: const BoxConstraints(
+      //   minWidth: 250,
+      //   maxWidth: 250,
+      // ),
       color: Colors.grey.shade300,
       padding: const EdgeInsets.all(16.0),
       child: Column(

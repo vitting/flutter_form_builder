@@ -9,6 +9,7 @@ class DesignViewElement extends StatelessWidget {
   final int index;
   final ValueChanged<ElementModel>? onDelete;
   final ElementModel item;
+
   const DesignViewElement({
     super.key,
     required this.index,
