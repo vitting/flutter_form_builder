@@ -36,7 +36,7 @@ class _FlexGridState extends State<FlexGrid> {
               IconButton(
                 onPressed: () {
                   if (FlexGridStore.gridEditableId.value == widget.item.id) {
-                    FlexGridStore.gridEditableId.value = '';
+                    FlexGridStore.gridEditableId.value = null;
                   } else {
                     FlexGridStore.gridEditableId.value = widget.item.id;
                   }

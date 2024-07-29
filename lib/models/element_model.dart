@@ -10,6 +10,7 @@ part 'element_model.g.dart';
 @CopyWith()
 class ElementModel extends Equatable {
   final String id;
+  final String? parentId;
   final String? title;
   final String? description;
   final ElementType type;
@@ -18,6 +19,7 @@ class ElementModel extends Equatable {
 
   const ElementModel({
     required this.id,
+    this.parentId,
     this.title,
     this.description,
     required this.type,
@@ -28,6 +30,7 @@ class ElementModel extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        parentId,
         title,
         description,
         type,
@@ -51,13 +54,16 @@ class ElementModel extends Equatable {
     );
   }
 
-  static ElementModel fromDragInfo(DragInfo dragInfo) {
+  static ElementModel fromDragInfo(DragInfo dragInfo,
+      {ElementModel? parentItem}) {
+    final id = const Uuid().v4();
     return ElementModel(
       title: dragInfo.title,
       description: dragInfo.description,
       layoutType: dragInfo.layoutType,
       type: dragInfo.type,
-      id: const Uuid().v4(),
+      id: id,
+      parentId: parentItem?.id ?? id,
       gridChildren: dragInfo.type == ElementType.grid
           ? _generateDefaultGridChildren(
               rowCount: 1,

@@ -124,7 +124,12 @@ class DropTargetZone extends StatelessWidget {
       },
       onAcceptWithDetails: (details) {
         DragAndDropStore.highlightId.value = '';
-        onDrop?.call(ElementModel.fromDragInfo(details.data));
+        onDrop?.call(
+          ElementModel.fromDragInfo(
+            details.data,
+            parentItem: parentItem,
+          ),
+        );
       },
       onLeave: (data) {
         DragAndDropStore.highlightId.value = '';

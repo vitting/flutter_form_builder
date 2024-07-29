@@ -62,7 +62,7 @@ class DesignViewElement extends StatelessWidget {
           ),
           secondChild: const SizedBox.shrink(),
           crossFadeState: ReorderListStore.reorderIsEnabled.value ||
-                  FlexGridStore.hideActionsId.value == item.id
+                  FlexGridStore.gridEditableId.value == item.parentId
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
           duration: const Duration(milliseconds: 200),
