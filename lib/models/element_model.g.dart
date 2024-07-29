@@ -9,7 +9,7 @@ part of 'element_model.dart';
 abstract class _$ElementModelCWProxy {
   ElementModel id(String id);
 
-  ElementModel parentId(String? parentId);
+  ElementModel parentId(String parentId);
 
   ElementModel title(String? title);
 
@@ -48,7 +48,7 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
   ElementModel id(String id) => this(id: id);
 
   @override
-  ElementModel parentId(String? parentId) => this(parentId: parentId);
+  ElementModel parentId(String parentId) => this(parentId: parentId);
 
   @override
   ElementModel title(String? title) => this(title: title);
@@ -90,10 +90,10 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
           ? _value.id
           // ignore: cast_nullable_to_non_nullable
           : id as String,
-      parentId: parentId == const $CopyWithPlaceholder()
+      parentId: parentId == const $CopyWithPlaceholder() || parentId == null
           ? _value.parentId
           // ignore: cast_nullable_to_non_nullable
-          : parentId as String?,
+          : parentId as String,
       title: title == const $CopyWithPlaceholder()
           ? _value.title
           // ignore: cast_nullable_to_non_nullable

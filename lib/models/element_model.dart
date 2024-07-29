@@ -10,7 +10,7 @@ part 'element_model.g.dart';
 @CopyWith()
 class ElementModel extends Equatable {
   final String id;
-  final String? parentId;
+  final String parentId;
   final String? title;
   final String? description;
   final ElementType type;
@@ -19,7 +19,7 @@ class ElementModel extends Equatable {
 
   const ElementModel({
     required this.id,
-    this.parentId,
+    required this.parentId,
     this.title,
     this.description,
     required this.type,
