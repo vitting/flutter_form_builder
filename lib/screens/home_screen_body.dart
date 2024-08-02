@@ -4,6 +4,7 @@ import 'package:flutter_web_formbuilder/stores/reorder_list_store.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/design_view_elements.dart';
 import 'package:flutter_web_formbuilder/widgets/dialogs/delete_design_item_dialog.dart';
+import 'package:flutter_web_formbuilder/widgets/dialogs/edit_design_item_dialog.dart';
 import 'package:gap/gap.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -44,34 +45,31 @@ class HomeScreenBody extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: DesignViewElements(
-                items: ApplicationStore.items,
-                highlightIdDragTargetZoneBefore: 'top',
-                highlightIdDragTargetZoneAfter: 'bottom',
-                onReorder: (oldIndex, newIndex) {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final item = ApplicationStore.items.removeAt(oldIndex);
-                  ApplicationStore.items.insert(newIndex, item);
-                },
-                onDropBefore: (elementItem) {
-                  ApplicationStore.items.insert(0, elementItem);
-                },
-                onDropAfter: (elementItem, index) {
-                  ApplicationStore.items.insert(index + 1, elementItem);
-                },
-                onDelete: (value) async {
-                  final delete = await showDialog<bool>(
-                    context: context,
-                    builder: (context) {
-                      return const DeleteDesignItemDialog();
-                    },
-                  );
-                  if (delete != null && delete) {
-                    ApplicationStore.items.remove(value);
-                  }
-                },
-              ),
+                  items: ApplicationStore.items,
+                  highlightIdDragTargetZoneBefore: 'top',
+                  highlightIdDragTargetZoneAfter: 'bottom',
+                  onReorder: (oldIndex, newIndex) {
+                    if (oldIndex < newIndex) {
+                      newIndex -= 1;
+                    }
+                    final item = ApplicationStore.items.removeAt(oldIndex);
+                    ApplicationStore.items.insert(newIndex, item);
+                  },
+                  onDropBefore: (elementItem) {
+                    ApplicationStore.items.insert(0, elementItem);
+                  },
+                  onDropAfter: (elementItem, index) {
+                    ApplicationStore.items.insert(index + 1, elementItem);
+                  },
+                  onDelete: (value) async {
+                    final delete = await DeleteDesignItemDialog.show(context);
+                    if (delete != null && delete) {
+                      ApplicationStore.items.remove(value);
+                    }
+                  },
+                  onEdit: (element) async {
+                    await EditDesignItemDialog.show(context, element);
+                  }),
             ),
           ),
         ],

@@ -11,8 +11,6 @@ abstract class _$ElementModelCWProxy {
 
   ElementModel parentId(String parentId);
 
-  ElementModel title(String? title);
-
   ElementModel description(String? description);
 
   ElementModel type(ElementType type);
@@ -20,6 +18,8 @@ abstract class _$ElementModelCWProxy {
   ElementModel layoutType(ElementLayoutType layoutType);
 
   ElementModel gridChildren(List<List<List<ElementModel>>> gridChildren);
+
+  ElementModel config(ElementConfigModel config);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ElementModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -30,11 +30,11 @@ abstract class _$ElementModelCWProxy {
   ElementModel call({
     String? id,
     String? parentId,
-    String? title,
     String? description,
     ElementType? type,
     ElementLayoutType? layoutType,
     List<List<List<ElementModel>>>? gridChildren,
+    ElementConfigModel? config,
   });
 }
 
@@ -49,9 +49,6 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
 
   @override
   ElementModel parentId(String parentId) => this(parentId: parentId);
-
-  @override
-  ElementModel title(String? title) => this(title: title);
 
   @override
   ElementModel description(String? description) =>
@@ -69,6 +66,9 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
       this(gridChildren: gridChildren);
 
   @override
+  ElementModel config(ElementConfigModel config) => this(config: config);
+
+  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ElementModel(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -79,11 +79,11 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
   ElementModel call({
     Object? id = const $CopyWithPlaceholder(),
     Object? parentId = const $CopyWithPlaceholder(),
-    Object? title = const $CopyWithPlaceholder(),
     Object? description = const $CopyWithPlaceholder(),
     Object? type = const $CopyWithPlaceholder(),
     Object? layoutType = const $CopyWithPlaceholder(),
     Object? gridChildren = const $CopyWithPlaceholder(),
+    Object? config = const $CopyWithPlaceholder(),
   }) {
     return ElementModel(
       id: id == const $CopyWithPlaceholder() || id == null
@@ -94,10 +94,6 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
           ? _value.parentId
           // ignore: cast_nullable_to_non_nullable
           : parentId as String,
-      title: title == const $CopyWithPlaceholder()
-          ? _value.title
-          // ignore: cast_nullable_to_non_nullable
-          : title as String?,
       description: description == const $CopyWithPlaceholder()
           ? _value.description
           // ignore: cast_nullable_to_non_nullable
@@ -116,6 +112,10 @@ class _$ElementModelCWProxyImpl implements _$ElementModelCWProxy {
               ? _value.gridChildren
               // ignore: cast_nullable_to_non_nullable
               : gridChildren as List<List<List<ElementModel>>>,
+      config: config == const $CopyWithPlaceholder() || config == null
+          ? _value.config
+          // ignore: cast_nullable_to_non_nullable
+          : config as ElementConfigModel,
     );
   }
 }

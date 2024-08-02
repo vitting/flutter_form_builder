@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
+import 'package:flutter_web_formbuilder/models/drag_info.dart';
 
 class DefinitionModel {
   final String title;
@@ -16,4 +17,12 @@ class DefinitionModel {
     required this.type,
     required this.icon,
   });
+
+  DragInfo toDragInfo() {
+    return DragInfo(
+        title: title,
+        description: description,
+        type: type,
+        layoutType: layoutType);
+  }
 }

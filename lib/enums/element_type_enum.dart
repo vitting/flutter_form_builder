@@ -5,5 +5,6 @@ enum ElementType {
   email,
   checkbox,
   checkboxList,
+  dropdown,
   grid,
 }

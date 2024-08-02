@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/definition_model.dart';
-import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/draggable_field_tile.dart';
 import 'package:flutter_web_formbuilder/widgets/toolbar_title.dart';
@@ -29,6 +28,13 @@ final Iterable<DefinitionModel> dummyFields = [
     layoutType: ElementLayoutType.input,
     type: ElementType.date,
     icon: IconStyles.iconDate,
+  ),
+  DefinitionModel(
+    title: 'Dropdown field',
+    description: 'This is a dropdown field',
+    layoutType: ElementLayoutType.input,
+    type: ElementType.dropdown,
+    icon: IconStyles.iconDropdown,
   ),
 ];
 
@@ -77,12 +83,7 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
               return Column(
                 children: [
                   DraggableFieldTile(
-                    dragInfo: DragInfo(
-                      layoutType: item.layoutType,
-                      type: item.type,
-                      description: item.description,
-                      title: item.title,
-                    ),
+                    dragInfo: item.toDragInfo(),
                     icon: item.icon,
                   ),
                   const Gap(8),
@@ -102,12 +103,7 @@ class _HomeScreenToolbarState extends State<HomeScreenToolbar> {
               return Column(
                 children: [
                   DraggableFieldTile(
-                    dragInfo: DragInfo(
-                      layoutType: item.layoutType,
-                      type: item.type,
-                      description: item.description,
-                      title: item.title,
-                    ),
+                    dragInfo: item.toDragInfo(),
                     icon: item.icon,
                   ),
                   const Gap(8),

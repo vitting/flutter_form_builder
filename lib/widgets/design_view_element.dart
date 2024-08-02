@@ -10,12 +10,14 @@ import 'package:signals/signals_flutter.dart';
 class DesignViewElement extends StatelessWidget {
   final int index;
   final ValueChanged<ElementModel>? onDelete;
+  final ValueChanged<ElementModel>? onEdit;
   final ElementModel item;
 
   const DesignViewElement({
     super.key,
     required this.index,
     this.onDelete,
+    this.onEdit,
     required this.item,
   });
 
@@ -55,7 +57,7 @@ class DesignViewElement extends StatelessWidget {
                   color: IconStyles.colorActionIcon,
                 ),
                 onPressed: () {
-                  onDelete?.call(item);
+                  onEdit?.call(item);
                 },
               )
             ],

@@ -11,6 +11,7 @@ class DesignViewElements extends StatelessWidget {
   final ValueChanged<ElementModel>? onDropBefore;
   final Function(ElementModel, int)? onDropAfter;
   final ValueChanged<ElementModel>? onDelete;
+  final ValueChanged<ElementModel>? onEdit;
   final Function(int, int) onReorder;
   final ElementModel? parentItem;
 
@@ -22,6 +23,7 @@ class DesignViewElements extends StatelessWidget {
     this.onDropBefore,
     this.onDropAfter,
     this.onDelete,
+    this.onEdit,
     required this.onReorder,
     this.parentItem,
   });
@@ -57,6 +59,7 @@ class DesignViewElements extends StatelessWidget {
                       index: index,
                       item: items.elementAt(index),
                       onDelete: onDelete,
+                      onEdit: onEdit,
                     ),
                     DropTargetZone(
                       highlightId: items.elementAt(index).id,

@@ -19,4 +19,5 @@ class IconStyles {
   static const IconData iconReorder = Symbols.reorder;
   static const IconData iconReorderActive = Symbols.list_alt;
   static const IconData iconExclamation = Symbols.exclamation;
+  static const IconData iconDropdown = Symbols.dropdown;
 }

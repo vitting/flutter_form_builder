@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 class DeleteDesignItemDialog extends StatelessWidget {
   const DeleteDesignItemDialog({super.key});
 
+  static Future<bool?> show(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return const DeleteDesignItemDialog();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

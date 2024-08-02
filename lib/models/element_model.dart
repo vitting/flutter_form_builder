@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
+import 'package:flutter_web_formbuilder/models/element_config_model.dart';
 import 'package:uuid/uuid.dart';
 
 part 'element_model.g.dart';
@@ -11,31 +12,31 @@ part 'element_model.g.dart';
 class ElementModel extends Equatable {
   final String id;
   final String parentId;
-  final String? title;
   final String? description;
   final ElementType type;
   final ElementLayoutType layoutType;
   final List<List<List<ElementModel>>> gridChildren;
+  final ElementConfigModel config;
 
   const ElementModel({
     required this.id,
     required this.parentId,
-    this.title,
     this.description,
     required this.type,
     required this.layoutType,
     this.gridChildren = const [],
+    required this.config,
   });
 
   @override
   List<Object?> get props => [
         id,
         parentId,
-        title,
         description,
         type,
         layoutType,
         gridChildren,
+        config,
       ];
 
   @override
@@ -58,7 +59,7 @@ class ElementModel extends Equatable {
       {ElementModel? parentItem}) {
     final id = const Uuid().v4();
     return ElementModel(
-      title: dragInfo.title,
+      config: ElementConfigModel(labelText: dragInfo.title),
       description: dragInfo.description,
       layoutType: dragInfo.layoutType,
       type: dragInfo.type,
