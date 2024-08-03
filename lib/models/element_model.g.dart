@@ -125,3 +125,55 @@ extension $ElementModelCopyWith on ElementModel {
   // ignore: library_private_types_in_public_api
   _$ElementModelCWProxy get copyWith => _$ElementModelCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ElementModel _$ElementModelFromJson(Map<String, dynamic> json) => ElementModel(
+      id: json['id'] as String,
+      parentId: json['parentId'] as String,
+      description: json['description'] as String?,
+      type: $enumDecode(_$ElementTypeEnumMap, json['type']),
+      layoutType: $enumDecode(_$ElementLayoutTypeEnumMap, json['layoutType']),
+      gridChildren: (json['gridChildren'] as List<dynamic>?)
+              ?.map((e) => (e as List<dynamic>)
+                  .map((e) => (e as List<dynamic>)
+                      .map((e) =>
+                          ElementModel.fromJson(e as Map<String, dynamic>))
+                      .toList())
+                  .toList())
+              .toList() ??
+          const [],
+      config:
+          ElementConfigModel.fromJson(json['config'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ElementModelToJson(ElementModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'parentId': instance.parentId,
+      'description': instance.description,
+      'type': _$ElementTypeEnumMap[instance.type]!,
+      'layoutType': _$ElementLayoutTypeEnumMap[instance.layoutType]!,
+      'gridChildren': instance.gridChildren
+          .map((e) => e.map((e) => e.map((e) => e.toJson()).toList()).toList())
+          .toList(),
+      'config': instance.config.toJson(),
+    };
+
+const _$ElementTypeEnumMap = {
+  ElementType.text: 'text',
+  ElementType.number: 'number',
+  ElementType.date: 'date',
+  ElementType.email: 'email',
+  ElementType.checkbox: 'checkbox',
+  ElementType.checkboxList: 'checkboxList',
+  ElementType.dropdown: 'dropdown',
+  ElementType.grid: 'grid',
+};
+
+const _$ElementLayoutTypeEnumMap = {
+  ElementLayoutType.input: 'input',
+  ElementLayoutType.layout: 'layout',
+};

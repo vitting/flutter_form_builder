@@ -4,11 +4,13 @@ import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/drag_info.dart';
 import 'package:flutter_web_formbuilder/models/element_config_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 part 'element_model.g.dart';
 
 @CopyWith()
+@JsonSerializable(explicitToJson: true)
 class ElementModel extends Equatable {
   final String id;
   final String parentId;
@@ -41,6 +43,11 @@ class ElementModel extends Equatable {
 
   @override
   bool get stringify => true;
+
+  factory ElementModel.fromJson(Map<String, dynamic> json) =>
+      _$ElementModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ElementModelToJson(this);
 
   static List<List<List<ElementModel>>> _generateDefaultGridChildren({
     required int rowCount,

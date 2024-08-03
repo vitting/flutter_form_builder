@@ -144,3 +144,33 @@ extension $ElementConfigModelCopyWith on ElementConfigModel {
   _$ElementConfigModelCWProxy get copyWith =>
       _$ElementConfigModelCWProxyImpl(this);
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ElementConfigModel _$ElementConfigModelFromJson(Map<String, dynamic> json) =>
+    ElementConfigModel(
+      labelText: json['labelText'] as String?,
+      required: json['required'] as bool?,
+      minLength: (json['minLength'] as num?)?.toInt(),
+      maxLength: (json['maxLength'] as num?)?.toInt(),
+      minValue: (json['minValue'] as num?)?.toInt(),
+      maxValue: (json['maxValue'] as num?)?.toInt(),
+      readOnly: json['readOnly'] as bool?,
+      initialValue: json['initialValue'] as String?,
+      hintText: json['hintText'] as String?,
+    );
+
+Map<String, dynamic> _$ElementConfigModelToJson(ElementConfigModel instance) =>
+    <String, dynamic>{
+      'labelText': instance.labelText,
+      'required': instance.required,
+      'minLength': instance.minLength,
+      'maxLength': instance.maxLength,
+      'minValue': instance.minValue,
+      'maxValue': instance.maxValue,
+      'readOnly': instance.readOnly,
+      'initialValue': instance.initialValue,
+      'hintText': instance.hintText,
+    };
