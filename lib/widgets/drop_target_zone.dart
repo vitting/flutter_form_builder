@@ -22,7 +22,6 @@ class DropTargetZone extends StatelessWidget {
     return DragTarget<DragInfo>(
       builder: (BuildContext context, List<DragInfo?> accepted,
           List<dynamic> rejected) {
-        debugPrint('rejected: $rejected');
         return Watch(
           (context) {
             return AnimatedContainer(

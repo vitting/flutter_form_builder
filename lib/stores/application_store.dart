@@ -11,6 +11,8 @@ final Iterable<ElementModel> dummy = [
     parentId: 'c59d7d76-501d-424e-a341-8d31325239bb',
     config: ElementConfigModel(
       labelText: 'Dropdown field',
+      hintText: '',
+      initialValue: '',
     ),
     description: 'This is a Dropdown field',
     type: ElementType.dropdown,
@@ -21,6 +23,10 @@ final Iterable<ElementModel> dummy = [
     parentId: 'c5729989-ccd0-4131-875d-199db4baa103',
     config: ElementConfigModel(
       labelText: 'Text field',
+      hintText: '',
+      initialValue: '',
+      minLength: 0,
+      maxLength: 0,
     ),
     description: 'This is a text field',
     type: ElementType.text,
@@ -31,6 +37,10 @@ final Iterable<ElementModel> dummy = [
     parentId: '85d5ad65-69b5-4e49-8d1b-f7b08cb3cf72',
     config: ElementConfigModel(
       labelText: 'Number field',
+      hintText: '',
+      initialValue: '',
+      minValue: 0,
+      maxValue: 0,
     ),
     description: 'This is a number field',
     type: ElementType.number,
@@ -53,6 +63,10 @@ final Iterable<ElementModel> dummy = [
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
             config: ElementConfigModel(
               labelText: 'Text field',
+              hintText: '',
+              initialValue: '',
+              minLength: 0,
+              maxLength: 0,
             ),
             description: 'This is a text field',
             type: ElementType.text,
@@ -63,6 +77,10 @@ final Iterable<ElementModel> dummy = [
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
             config: ElementConfigModel(
               labelText: 'Number field',
+              hintText: '',
+              initialValue: '',
+              minValue: 0,
+              maxValue: 0,
             ),
             description: 'This is a number field',
             type: ElementType.number,
@@ -75,6 +93,10 @@ final Iterable<ElementModel> dummy = [
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
             config: ElementConfigModel(
               labelText: 'Number field',
+              hintText: '',
+              initialValue: '',
+              minValue: 0,
+              maxValue: 0,
             ),
             description: 'This is a number field',
             type: ElementType.number,
@@ -89,6 +111,10 @@ final Iterable<ElementModel> dummy = [
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
             config: ElementConfigModel(
               labelText: 'Text field',
+              hintText: '',
+              initialValue: '',
+              minLength: 0,
+              maxLength: 0,
             ),
             description: 'This is a text field',
             type: ElementType.text,
@@ -101,6 +127,10 @@ final Iterable<ElementModel> dummy = [
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
             config: ElementConfigModel(
               labelText: 'Number field',
+              hintText: '',
+              initialValue: '',
+              minValue: 0,
+              maxValue: 0,
             ),
             description: 'This is a number field',
             type: ElementType.number,
@@ -109,46 +139,6 @@ final Iterable<ElementModel> dummy = [
         ],
       ],
     ],
-  ),
-  ElementModel(
-    id: '3ca9406e-14f5-419c-94de-570979accc35',
-    parentId: '3ca9406e-14f5-419c-94de-570979accc35',
-    config: ElementConfigModel(
-      labelText: 'Text field',
-    ),
-    description: 'This is a text field',
-    type: ElementType.text,
-    layoutType: ElementLayoutType.input,
-  ),
-  ElementModel(
-    id: '273b92b2-3c19-4684-b0ea-e29e429e91fb',
-    parentId: '273b92b2-3c19-4684-b0ea-e29e429e91fb',
-    config: ElementConfigModel(
-      labelText: 'Number field',
-    ),
-    description: 'This is a number field',
-    type: ElementType.number,
-    layoutType: ElementLayoutType.input,
-  ),
-  ElementModel(
-    id: 'ba3fb01f-8fd3-4c0e-b713-c3d4b62597c4',
-    parentId: 'ba3fb01f-8fd3-4c0e-b713-c3d4b62597c4',
-    config: ElementConfigModel(
-      labelText: 'Text field',
-    ),
-    description: 'This is a text field',
-    type: ElementType.text,
-    layoutType: ElementLayoutType.input,
-  ),
-  ElementModel(
-    id: '54ae9b82-f96e-4aa9-9132-eb5882f15771',
-    parentId: '54ae9b82-f96e-4aa9-9132-eb5882f15771',
-    config: ElementConfigModel(
-      labelText: 'Number field',
-    ),
-    description: 'This is a number field',
-    type: ElementType.number,
-    layoutType: ElementLayoutType.input,
   ),
 ];
 

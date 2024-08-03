@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_formbuilder/models/element_model.dart';
+import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
+import 'package:gap/gap.dart';
 
 class EditDesignItemDialog extends StatefulWidget {
   final ElementModel item;
@@ -25,6 +27,8 @@ class EditDesignItemDialog extends StatefulWidget {
 class _EditDesignItemDialogState extends State<EditDesignItemDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _labelTextController;
+  late final TextEditingController _hintTextController;
+  late final TextEditingController _initialValueTextController;
   late final TextEditingController _minLengthController;
   late final TextEditingController _maxLengthController;
   late final TextEditingController _minValueController;
@@ -36,6 +40,10 @@ class _EditDesignItemDialogState extends State<EditDesignItemDialog> {
 
     _labelTextController =
         TextEditingController(text: widget.item.config.labelText);
+    _hintTextController =
+        TextEditingController(text: widget.item.config.hintText);
+    _initialValueTextController =
+        TextEditingController(text: widget.item.config.initialValue);
     _minLengthController =
         TextEditingController(text: widget.item.config.minLength?.toString());
     _maxLengthController =
@@ -50,7 +58,26 @@ class _EditDesignItemDialogState extends State<EditDesignItemDialog> {
   Widget build(BuildContext context) {
     return SimpleDialog(
       contentPadding: const EdgeInsets.all(16),
-      title: const Text('Edit Element'),
+      title: SizedBox(
+        width: 350,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Flexible(
+              child: Text(
+                'Edit Element',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(IconStyles.iconClose),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      ),
       children: <Widget>[
         Form(
           key: _formKey,
@@ -64,54 +91,89 @@ class _EditDesignItemDialogState extends State<EditDesignItemDialog> {
                     labelText: 'Label Text',
                   ),
                 ),
-              if (widget.item.config.minLength != null)
+              if (widget.item.config.hintText != null)
                 TextFormField(
-                  controller: _minLengthController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
+                  controller: _hintTextController,
                   decoration: const InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Min length',
+                    labelText: 'Hint Text',
                   ),
                 ),
-              if (widget.item.config.maxLength != null)
+              if (widget.item.config.initialValue != null)
                 TextFormField(
-                  controller: _maxLengthController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
+                  controller: _initialValueTextController,
                   decoration: const InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Max length',
+                    labelText: 'Initial value',
                   ),
                 ),
-              if (widget.item.config.minValue != null)
-                TextFormField(
-                  controller: _minValueController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Min value',
-                  ),
-                ),
-              if (widget.item.config.maxValue != null)
-                TextFormField(
-                  controller: _maxValueController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Max value',
-                  ),
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.item.config.minLength != null)
+                    Flexible(
+                      child: TextFormField(
+                        controller: _minLengthController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Min length',
+                        ),
+                      ),
+                    ),
+                  const Gap(8),
+                  if (widget.item.config.maxLength != null)
+                    Flexible(
+                      child: TextFormField(
+                        controller: _maxLengthController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Max length',
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              Row(
+                children: [
+                  if (widget.item.config.minValue != null)
+                    Flexible(
+                      child: TextFormField(
+                        controller: _minValueController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Min value',
+                        ),
+                      ),
+                    ),
+                  const Gap(8),
+                  if (widget.item.config.maxValue != null)
+                    Flexible(
+                      child: TextFormField(
+                        controller: _maxValueController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: const InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'Max value',
+                        ),
+                      ),
+                    ),
+                ],
+              )
             ],
           ),
         ),

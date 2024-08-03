@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_formbuilder/enums/element_layout_type_enum.dart';
 import 'package:flutter_web_formbuilder/enums/element_type_enum.dart';
 import 'package:flutter_web_formbuilder/models/definition_model.dart';
+import 'package:flutter_web_formbuilder/models/element_config_model.dart';
 import 'package:flutter_web_formbuilder/styles/icon_styles.dart';
 import 'package:flutter_web_formbuilder/widgets/draggable_field_tile.dart';
 import 'package:flutter_web_formbuilder/widgets/toolbar_title.dart';
@@ -14,6 +15,13 @@ final Iterable<DefinitionModel> dummyFields = [
     layoutType: ElementLayoutType.input,
     type: ElementType.text,
     icon: IconStyles.iconTextFields,
+    config: ElementConfigModel(
+      labelText: 'Text field',
+      hintText: '',
+      initialValue: '',
+      minLength: 0,
+      maxLength: 0,
+    ),
   ),
   DefinitionModel(
     title: 'Number field',
@@ -21,6 +29,13 @@ final Iterable<DefinitionModel> dummyFields = [
     layoutType: ElementLayoutType.input,
     type: ElementType.number,
     icon: IconStyles.iconNumbers,
+    config: ElementConfigModel(
+      labelText: 'Number field',
+      hintText: '',
+      initialValue: '',
+      minValue: 0,
+      maxValue: 0,
+    ),
   ),
   DefinitionModel(
     title: 'Date field',
@@ -28,6 +43,11 @@ final Iterable<DefinitionModel> dummyFields = [
     layoutType: ElementLayoutType.input,
     type: ElementType.date,
     icon: IconStyles.iconDate,
+    config: ElementConfigModel(
+      labelText: 'Date field',
+      hintText: '',
+      initialValue: '',
+    ),
   ),
   DefinitionModel(
     title: 'Dropdown field',
@@ -35,6 +55,11 @@ final Iterable<DefinitionModel> dummyFields = [
     layoutType: ElementLayoutType.input,
     type: ElementType.dropdown,
     icon: IconStyles.iconDropdown,
+    config: ElementConfigModel(
+      labelText: 'Dropdown field',
+      hintText: '',
+      initialValue: '',
+    ),
   ),
 ];
 
@@ -45,6 +70,9 @@ final Iterable<DefinitionModel> dummyLayouts = [
     layoutType: ElementLayoutType.layout,
     type: ElementType.grid,
     icon: IconStyles.iconGrid,
+    config: ElementConfigModel(
+      labelText: 'Grid field',
+    ),
   ),
 ];
 

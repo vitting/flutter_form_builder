@@ -59,7 +59,7 @@ class ElementModel extends Equatable {
       {ElementModel? parentItem}) {
     final id = const Uuid().v4();
     return ElementModel(
-      config: ElementConfigModel(labelText: dragInfo.title),
+      config: dragInfo.config,
       description: dragInfo.description,
       layoutType: dragInfo.layoutType,
       type: dragInfo.type,
