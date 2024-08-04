@@ -22,3 +22,21 @@ class IconStyles {
   static const IconData iconDropdown = Symbols.dropdown;
   static const IconData iconClose = Symbols.close;
 }
+
+Map<String, IconData> iconMap = {
+  'iconDelete': IconStyles.iconDelete,
+  'iconEdit': IconStyles.iconEdit,
+  'iconDrag': IconStyles.iconDrag,
+  'iconDragHandler': IconStyles.iconDragHandler,
+  'iconTextFields': IconStyles.iconTextFields,
+  'iconNumbers': IconStyles.iconNumbers,
+  'iconDate': IconStyles.iconDate,
+  'iconGrid': IconStyles.iconGrid,
+  'iconTableRow': IconStyles.iconTableRow,
+  'iconTableColumn': IconStyles.iconTableColumn,
+  'iconReorder': IconStyles.iconReorder,
+  'iconReorderActive': IconStyles.iconReorderActive,
+  'iconExclamation': IconStyles.iconExclamation,
+  'iconDropdown': IconStyles.iconDropdown,
+  'iconClose': IconStyles.iconClose,
+};

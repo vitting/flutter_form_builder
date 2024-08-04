@@ -33,12 +33,14 @@ dependencies:
   cupertino_icons: ^1.0.6
   date_field: ^5.2.1
   deepcopy: ^1.1.2
+  dio: ^5.5.0+1
   dotted_border: ^2.1.0
   drag_and_drop_lists: ^0.4.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   gap: ^3.0.1
+  get_it: ^7.7.0
   intl: ^0.19.0
   json_annotation: ^4.9.0
   material_symbols_icons: ^4.2771.0

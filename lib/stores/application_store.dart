@@ -6,7 +6,7 @@ import 'package:signals/signals.dart';
 import 'package:uuid/uuid.dart';
 
 final Iterable<ElementModel> dummy = [
-  ElementModel(
+  const ElementModel(
     id: 'c59d7d76-501d-424e-a341-8d31325239bb',
     parentId: 'c59d7d76-501d-424e-a341-8d31325239bb',
     config: ElementConfigModel(
@@ -18,7 +18,7 @@ final Iterable<ElementModel> dummy = [
     type: ElementType.dropdown,
     layoutType: ElementLayoutType.input,
   ),
-  ElementModel(
+  const ElementModel(
     id: 'c5729989-ccd0-4131-875d-199db4baa103',
     parentId: 'c5729989-ccd0-4131-875d-199db4baa103',
     config: ElementConfigModel(
@@ -32,7 +32,7 @@ final Iterable<ElementModel> dummy = [
     type: ElementType.text,
     layoutType: ElementLayoutType.input,
   ),
-  ElementModel(
+  const ElementModel(
     id: '85d5ad65-69b5-4e49-8d1b-f7b08cb3cf72',
     parentId: '85d5ad65-69b5-4e49-8d1b-f7b08cb3cf72',
     config: ElementConfigModel(
@@ -49,7 +49,7 @@ final Iterable<ElementModel> dummy = [
   ElementModel(
     id: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
     parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-    config: ElementConfigModel(
+    config: const ElementConfigModel(
       labelText: 'Grid layout',
     ),
     description: 'This is a grid layout',
@@ -61,7 +61,7 @@ final Iterable<ElementModel> dummy = [
           ElementModel(
             id: const Uuid().v4(),
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-            config: ElementConfigModel(
+            config: const ElementConfigModel(
               labelText: 'Text field',
               hintText: '',
               initialValue: '',
@@ -75,7 +75,7 @@ final Iterable<ElementModel> dummy = [
           ElementModel(
             id: const Uuid().v4(),
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-            config: ElementConfigModel(
+            config: const ElementConfigModel(
               labelText: 'Number field',
               hintText: '',
               initialValue: '',
@@ -91,7 +91,7 @@ final Iterable<ElementModel> dummy = [
           ElementModel(
             id: const Uuid().v4(),
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-            config: ElementConfigModel(
+            config: const ElementConfigModel(
               labelText: 'Number field',
               hintText: '',
               initialValue: '',
@@ -109,7 +109,7 @@ final Iterable<ElementModel> dummy = [
           ElementModel(
             id: const Uuid().v4(),
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-            config: ElementConfigModel(
+            config: const ElementConfigModel(
               labelText: 'Text field',
               hintText: '',
               initialValue: '',
@@ -125,7 +125,7 @@ final Iterable<ElementModel> dummy = [
           ElementModel(
             id: const Uuid().v4(),
             parentId: 'b695278a-e3f9-4294-a7e5-a002d9831d4f',
-            config: ElementConfigModel(
+            config: const ElementConfigModel(
               labelText: 'Number field',
               hintText: '',
               initialValue: '',

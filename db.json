@@ -1,0 +1,101 @@
+{
+  "inputFields": [
+    {
+      "id": "ad45cee5-caaa-4c80-a3cb-6f3df7a000e6",
+      "title": "Text field",
+      "description": "This is a text field 2",
+      "layoutType": "input",
+      "type": "text",
+      "config": {
+        "labelText": "Text field",
+        "required": null,
+        "minLength": 0,
+        "maxLength": 0,
+        "minValue": null,
+        "maxValue": null,
+        "readOnly": null,
+        "initialValue": "",
+        "hintText": ""
+      },
+      "iconName": "iconTextFields"
+    },
+    {
+      "id": "14faa330-3ccf-4df0-8f50-3af0bb1b9656",
+      "title": "Number field",
+      "description": "This is a number field",
+      "layoutType": "input",
+      "type": "number",
+      "config": {
+        "labelText": "Number field",
+        "required": null,
+        "minLength": null,
+        "maxLength": null,
+        "minValue": 0,
+        "maxValue": 0,
+        "readOnly": null,
+        "initialValue": "",
+        "hintText": ""
+      },
+      "iconName": "iconNumbers"
+    },
+    {
+      "id": "73e6b418-f51f-4b13-b124-b3dd524fcb58",
+      "title": "Date field",
+      "description": "This is a date field",
+      "layoutType": "input",
+      "type": "date",
+      "config": {
+        "labelText": "Date field",
+        "required": null,
+        "minLength": null,
+        "maxLength": null,
+        "minValue": null,
+        "maxValue": null,
+        "readOnly": null,
+        "initialValue": "",
+        "hintText": ""
+      },
+      "iconName": "iconDate"
+    },
+    {
+      "id": "816142e5-7fa3-4e63-86d5-79bdedb2ef38",
+      "title": "Dropdown field",
+      "description": "This is a dropdown field",
+      "layoutType": "input",
+      "type": "dropdown",
+      "config": {
+        "labelText": "Dropdown field",
+        "required": null,
+        "minLength": null,
+        "maxLength": null,
+        "minValue": null,
+        "maxValue": null,
+        "readOnly": null,
+        "initialValue": "",
+        "hintText": ""
+      },
+      "iconName": "iconDropdown"
+    }
+  ],
+  "layoutFields": [
+    {
+      "id": "128758f6-f31d-4ea3-815a-584abf96e021",
+      "title": "Grid",
+      "description": "This is a grid layout field",
+      "layoutType": "layout",
+      "type": "grid",
+      "config": {
+        "labelText": "Grid field",
+        "required": null,
+        "minLength": null,
+        "maxLength": null,
+        "minValue": null,
+        "maxValue": null,
+        "readOnly": null,
+        "initialValue": null,
+        "hintText": null
+      },
+      "iconName": "iconGrid"
+    }
+  ]
+}
